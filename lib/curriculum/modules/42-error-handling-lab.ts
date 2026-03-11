@@ -129,7 +129,7 @@ report(successes, failures)
       validate: (_code: string, stdout: string) => {
         const failLines = stdout
           .split("\n")
-          .filter((line) => line.startsWith("FAIL:"));
+          .filter((line) => line.trim().startsWith("FAIL:"));
         return (
           failLines.length >= 4 &&
           failLines.every((line) => line.includes("->"))

@@ -158,14 +158,16 @@ result = safe_execute(risky_divide, 10, 2)
 print(f"Success: {result}")
 `,
       validate: (code: string) => {
+        // After replacing "raise <identifier>" with "raise X", a bare `raise`
+        // on its own line will still match /raise\s*$/m — confirming it's present
+        const hasBareRaise = /raise\s*$/m.test(
+          code.replace(/raise\s+\w/g, "raise X")
+        );
         return (
           code.includes("def safe_execute") &&
           code.includes("[LOG]") &&
-          code.includes("raise") &&
-          // bare raise — not "raise e" or "raise SomethingElse"
-          /raise\s*$/.test(code.replace(/raise\s+\w/g, "raise X"))
-            ? false
-            : code.includes("raise") && code.includes("except Exception")
+          hasBareRaise &&
+          code.includes("except Exception")
         );
       },
       successMessage:

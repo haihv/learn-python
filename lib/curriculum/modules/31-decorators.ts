@@ -210,6 +210,8 @@ The \`repeat(3)\` call returns a decorator, and that decorator is applied to \`s
 A class can also act as a decorator if it defines \`__call__\`:
 
 \`\`\`python
+import functools
+
 class CountCalls:
     """Decorator that counts how many times a function is called."""
     def __init__(self, func):
@@ -222,8 +224,6 @@ class CountCalls:
         self.count += 1
         print(f"Call #{self.count} to {self.func.__name__}")
         return self.func(*args, **kwargs)
-
-import functools
 
 @CountCalls
 def greet(name):
