@@ -58,7 +58,7 @@ export default function PythonEditor({ value, onChange, readOnly, onCmdEnter }: 
         onChange={onChange}
         extensions={extensions}
         theme={oneDark}
-        minHeight="280px"
+        height="400px"
         className="font-mono"
         basicSetup={{ lineNumbers: true }}
         editable={!readOnly}
