@@ -133,9 +133,9 @@ for letter in sorted(by_letter.keys()):
     },
     {
       name: "Correct count for 'the'",
-      description: "The word 'the' appears 5 times in the paragraph",
+      description: "The word 'the' appears 7 times in the paragraph",
       validate: (_code: string, stdout: string) =>
-        stdout.includes("the: 5"),
+        stdout.includes("the: 7"),
     },
     {
       name: "Correct count for 'and'",
@@ -145,9 +145,9 @@ for letter in sorted(by_letter.keys()):
     },
     {
       name: "Most common word identified",
-      description: "Output correctly identifies 'the' as the most common word with 5 occurrences",
+      description: "Output correctly identifies 'the' as the most common word with 7 occurrences",
       validate: (_code: string, stdout: string) =>
-        stdout.includes("the (5 times)"),
+        stdout.includes("the (7 times)"),
     },
     {
       name: "Words grouped by first letter",

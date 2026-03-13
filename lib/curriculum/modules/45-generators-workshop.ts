@@ -120,7 +120,7 @@ for line in pipeline:
     {
       instruction:
         "Build a 3-stage generator pipeline: `numbers(n)` yields integers 1..n; `squares(nums)` yields each squared; `even_only(nums)` filters to even numbers only. Print the result of composing all three for n=10.",
-      hint: "def numbers(n): yield from range(1, n+1). def squares(nums): for n in nums: yield n*n. def even_only(nums): for n in nums: yield n if n % 2 == 0.",
+      hint: "def numbers(n): yield from range(1, n+1). def squares(nums): for n in nums: yield n*n. def even_only(nums): for n in nums: if n % 2 == 0: yield n.",
       starterCode: `def numbers(n):
     # TODO: yield 1, 2, ..., n
     pass

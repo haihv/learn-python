@@ -94,6 +94,7 @@ def process_payment(amount, currency="USD"):
 
 # Test normal usage
 print(process_payment(100.00))
+time.sleep(0.6)
 print(process_payment(50.00, "EUR"))
 
 # Test rate limiting
@@ -148,6 +149,7 @@ def process_payment(amount, currency="USD"):
     return f"Processed {currency} {amount:.2f}"
 
 print(process_payment(100.00))
+time.sleep(0.6)
 print(process_payment(50.00, "EUR"))
 
 try:

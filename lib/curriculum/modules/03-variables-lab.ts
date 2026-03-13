@@ -39,16 +39,16 @@ In this lab, you will practice declaring variables of different types and printi
 # Fill in the TODO sections below
 
 # TODO: Declare a string variable called 'name'
-name =
+name = ""
 
 # TODO: Declare an integer variable called 'age'
-age =
+age = 0
 
 # TODO: Declare a float variable called 'height' (in meters)
-height =
+height = 0.0
 
 # TODO: Declare a boolean variable called 'is_student'
-is_student =
+is_student = False
 
 # TODO: Print each variable using f-strings
 # Expected output format:
@@ -57,6 +57,9 @@ is_student =
 # Height: 1.75
 # Student: True
 print(f"Name: {name}")
+print(f"Age: {age}")
+print(f"Height: {height}")
+print(f"Student: {is_student}")
 `,
   solutionCode: `# Variables Practice Lab — Solution
 
@@ -81,32 +84,37 @@ print(f"Student: {is_student}")
   tests: [
     {
       name: "name variable declared",
-      description: "Code should declare a variable called 'name'",
-      validate: (code, _stdout) => code.includes("name") && code.includes("="),
+      description: "Assign a non-empty string to 'name' (e.g. name = \"Alice\")",
+      // Regex skips comment lines; requires a quoted non-empty string value.
+      validate: (code, _stdout) => /(?:^|\n)\s*name\s*=\s*["'][^"']+["']/.test(code),
     },
     {
       name: "age variable declared",
-      description: "Code should declare a variable called 'age'",
-      validate: (code, _stdout) => code.includes("age") && code.includes("="),
+      description: "Assign a positive integer to 'age' (e.g. age = 25)",
+      validate: (code, _stdout) => /(?:^|\n)\s*age\s*=\s*[1-9]\d*/.test(code),
     },
     {
       name: "height variable declared",
-      description: "Code should declare a variable called 'height'",
-      validate: (code, _stdout) => code.includes("height") && code.includes("="),
+      description: "Assign a positive decimal to 'height' (e.g. height = 1.75)",
+      validate: (code, _stdout) => /(?:^|\n)\s*height\s*=\s*[1-9]\d*\.?\d*/.test(code),
     },
     {
       name: "is_student variable declared",
-      description: "Code should declare a variable called 'is_student'",
-      validate: (code, _stdout) => code.includes("is_student") && code.includes("="),
+      description: "Assign True or False to 'is_student'",
+      validate: (code, _stdout) => /(?:^|\n)\s*is_student\s*=\s*(True|False)/.test(code),
     },
     {
       name: "Output contains Name, Age, Height, and Student",
-      description: "Printed output should include all four labels",
+      description: "Print all four variables with non-default values",
+      // Check labels are present and values are not the starter-code defaults.
       validate: (_code, stdout) =>
         stdout.includes("Name:") &&
         stdout.includes("Age:") &&
         stdout.includes("Height:") &&
-        stdout.includes("Student:"),
+        stdout.includes("Student:") &&
+        !stdout.includes("Name: \n") &&
+        !stdout.includes("Age: 0\n") &&
+        !stdout.includes("Height: 0.0\n"),
     },
   ],
 };

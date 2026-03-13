@@ -68,7 +68,7 @@ print(triple(septuple(2)))  # 42  (triple(14))
           code.includes("def make_multiplier") &&
           code.includes("return") &&
           code.includes("def ") &&
-          code.includes("* n") || code.includes("*n")
+          (code.includes("* n") || code.includes("*n"))
         );
       },
       successMessage:

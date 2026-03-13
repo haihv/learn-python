@@ -69,7 +69,7 @@ print(score_to_word)
 unique_lengths = # TODO
 
 print(sorted(unique_lengths))
-# Expected: [2, 3, 4, 5] (lengths of 'ox'/'the'/... etc.)
+# Expected: [3, 4, 5] (lengths of 'the'/'over'/'quick'/... etc.)
 # Exact output may vary but no duplicates
 `,
       validate: (code: string) => {

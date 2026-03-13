@@ -39,11 +39,15 @@ Implement the \`Calculator\` class **and** its test suite in the same file.
 
 At the bottom of the file, add:
 \`\`\`python
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
+import io as _io
+_buf = _io.StringIO()
+_runner = unittest.TextTestRunner(stream=_buf, verbosity=2)
+_suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
+_runner.run(_suite)
+print(_buf.getvalue())
 \`\`\`
 
-Run with: \`python solution.py\`
+This routes the test output to stdout so it appears in the output panel.
 
 ### Example output
 \`\`\`
@@ -117,8 +121,12 @@ class TestCalculator(unittest.TestCase):
         pass  # after operations, clear_history(), check history is empty
 
 
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
+import io as _io
+_buf = _io.StringIO()
+_runner = unittest.TextTestRunner(stream=_buf, verbosity=2)
+_suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
+_runner.run(_suite)
+print(_buf.getvalue())
 `,
   solutionCode: `import unittest
 
@@ -203,8 +211,12 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calc.history, [])
 
 
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
+import io as _io
+_buf = _io.StringIO()
+_runner = unittest.TextTestRunner(stream=_buf, verbosity=2)
+_suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
+_runner.run(_suite)
+print(_buf.getvalue())
 `,
   tests: [
     {
@@ -238,7 +250,7 @@ if __name__ == "__main__":
     },
     {
       name: "All tests pass",
-      description: "Running the test suite must produce output containing 'OK'",
+      description: "Running the test suite must produce output containing 'OK' — route output to stdout with TextTestRunner(stream=buf) and print(buf.getvalue())",
       validate: (_code: string, stdout: string) =>
         stdout.includes("OK") && !stdout.includes("FAILED"),
     },

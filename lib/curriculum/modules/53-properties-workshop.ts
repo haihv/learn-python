@@ -62,7 +62,7 @@ except AttributeError as e:
           code.includes("@celsius.setter") &&
           code.includes("fahrenheit") &&
           (code.includes("-273.15") || code.includes("-273")) &&
-          code.includes("9/5") || code.includes("9 / 5")
+          (code.includes("9/5") || code.includes("9 / 5"))
         );
       },
       successMessage:

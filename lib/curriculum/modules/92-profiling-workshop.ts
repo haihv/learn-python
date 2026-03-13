@@ -75,7 +75,7 @@ stream = io.StringIO()
 `,
       validate: (code: string) =>
         code.includes("cProfile") &&
-        (code.includes("pstats") || code.includes("cProfile.run")),
+        (code.includes("pstats.Stats") || code.includes("cProfile.run(")),
       successMessage:
         "fib(25) without memoization makes 242,785 calls. cProfile shows this clearly in the ncalls column. tottime per call is tiny, but ncalls is enormous — this is the classic exponential blowup. The fix is memoization, which you'll apply in step 4.",
     },
@@ -140,7 +140,7 @@ print(f"fib_slow(30): {t_slow:.4f}s")
 # print(fib_fast.cache_info())
 `,
       validate: (code: string) =>
-        code.includes("lru_cache") &&
+        code.includes("@lru_cache") &&
         code.includes("timeit"),
       successMessage:
         "With lru_cache, fib(30) goes from ~1 second (9 million calls) to microseconds. cache_info shows nearly all calls become hits after the first run. This is memoization: trade memory for time by storing results you've already computed.",

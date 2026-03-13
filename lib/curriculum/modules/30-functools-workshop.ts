@@ -109,7 +109,7 @@ print(add.__doc__)      # Should print the original docstring
 `,
       validate: (code: string) => {
         return (
-          code.includes("wraps") &&
+          code.includes("@wraps") &&
           code.includes("log_calls") &&
           code.includes("__name__")
         );

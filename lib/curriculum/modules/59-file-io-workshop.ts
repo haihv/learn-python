@@ -167,7 +167,7 @@ print(f"\\nAverage score: {avg_score:.1f}")
 print(f"Top student: {top['name']} with {top['score']}")
 `,
       validate: (code) =>
-        code.includes("split(",) || code.includes('split(",")') || code.includes("split(',')"),
+        code.includes('split(",")') || code.includes("split(',')") || code.includes('split(","'),
       successMessage:
         "Parsing files manually builds intuition before using higher-level libraries like csv or pandas. Understanding what those libraries do for you makes you a better programmer.",
     },

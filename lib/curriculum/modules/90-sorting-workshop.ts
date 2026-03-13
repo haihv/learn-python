@@ -61,7 +61,7 @@ print("By age:", [p["name"] for p in by_age])
         code.includes("sorted") &&
         code.includes("dept") &&
         code.includes("salary") &&
-        code.includes("-"),
+        (code.includes("-e[") || code.includes("-e['salary']") || code.includes('-e["salary"]')),
       successMessage:
         "Negating a numeric key is the idiomatic way to mix ascending and descending levels in a single sort call. Remember this pattern — you'll use it often with data analysis.",
     },

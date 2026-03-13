@@ -159,7 +159,7 @@ if __name__ == "__main__":
       validate: (code: string) =>
         code.includes("mock.patch") &&
         code.includes("mock_get") &&
-        code.includes("return_value"),
+        code.includes("mock_get.return_value"),
       successMessage:
         "Mocking lets you test code in isolation without real network calls — fast and reliable tests!",
     },

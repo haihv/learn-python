@@ -111,7 +111,7 @@ print(format_result(result, "Product"))
         code.includes("__all__") &&
         code.includes("def add") &&
         code.includes("def multiply") &&
-        code.includes("_validate") || (code.includes("__all__") && code.includes("def _")),
+        (code.includes("_validate") || code.includes("def _")),
       successMessage:
         "Excellent! __all__ gives module authors control over what's considered public. It's documentation and enforcement in one — when someone does `from mymodule import *`, only __all__ items come through.",
     },
