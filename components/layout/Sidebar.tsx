@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useProgress } from "@/hooks/useProgress";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Badge from "@/components/ui/Badge";
@@ -21,6 +21,12 @@ type ContentProps = {
 };
 
 function SidebarContent({ modules, currentSlug, completedCount, totalCount, isComplete, onNavigate }: ContentProps) {
+  const activeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    activeRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [currentSlug]);
+
   return (
     <>
       <div className="p-4 border-b border-navy-600">
@@ -31,6 +37,7 @@ function SidebarContent({ modules, currentSlug, completedCount, totalCount, isCo
         {modules.map((m) => (
           <button
             key={m.id}
+            ref={m.slug === currentSlug ? activeRef : null}
             className={`w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-navy-700 transition-colors${m.slug === currentSlug ? " bg-navy-700" : ""}`}
             onClick={() => onNavigate(m.slug)}
           >
