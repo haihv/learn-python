@@ -26,19 +26,21 @@ export const inheritanceWorkshop: WorkshopModule = {
 
 class Dog(Animal):
     def __init__(self, name, age, breed):
-        super().__init__(name, age)
-        self.breed = breed
+        # TODO: call super().__init__, store self.breed
+        pass
 
     def speak(self):
-        return f"{self.name} says: Woof!"
+        # TODO: return f"{self.name} says: Woof!"
+        pass
 
 class Cat(Animal):
     def __init__(self, name, age, indoor=True):
-        super().__init__(name, age)
-        self.indoor = indoor
+        # TODO: call super().__init__, store self.indoor
+        pass
 
     def speak(self):
-        return f"{self.name} says: Meow!"
+        # TODO: return f"{self.name} says: Meow!"
+        pass
 
 # Test the hierarchy
 dog = Dog("Rex", 3, "Labrador")
@@ -88,12 +90,12 @@ class Dog(Animal):
 
 class ServiceDog(Dog):
     def __init__(self, name, age, breed, service_type):
-        super().__init__(name, age, breed)
-        self.service_type = service_type
+        # TODO: call super().__init__, store self.service_type
+        pass
 
     def speak(self):
-        base = super().speak()
-        return f"{base} (trained for {self.service_type})"
+        # TODO: call super().speak(), append training info, return result
+        pass
 
 buddy = ServiceDog("Buddy", 4, "Golden Retriever", "guide")
 print(buddy)          # ServiceDog('Buddy')
@@ -113,7 +115,7 @@ print([c.__name__ for c in ServiceDog.__mro__])
         return (
           code.includes("class ServiceDog(Dog)") &&
           code.includes("super().__init__") &&
-          code.includes("service_type") &&
+          code.includes("self.service_type") &&
           code.includes("isinstance")
         );
       },
@@ -136,17 +138,17 @@ print([c.__name__ for c in ServiceDog.__mro__])
 class Speakable:
     """Mixin that adds an introduction method."""
     def introduce(self):
-        return f"Hi, I am {self.name}, a {type(self).__name__}."
+        # TODO: return introduction f-string with self.name and type(self).__name__
+        pass
 
 class Parrot(Speakable, Animal):
     def __init__(self, name, age, can_talk=True):
-        super().__init__(name, age)
-        self.can_talk = can_talk
+        # TODO: call super().__init__, store self.can_talk
+        pass
 
     def speak(self):
-        if self.can_talk:
-            return f"{self.name} says: Polly wants a cracker!"
-        return f"{self.name} squawks!"
+        # TODO: return different phrase based on self.can_talk
+        pass
 
 polly = Parrot("Polly", 7)
 print(polly.speak())       # Polly says: Polly wants a cracker!
@@ -163,7 +165,9 @@ print([c.__name__ for c in Parrot.__mro__])
           code.includes("introduce") &&
           code.includes("class Parrot") &&
           code.includes("Speakable") &&
-          code.includes("Animal")
+          code.includes("Animal") &&
+          code.includes("super().__init__") &&
+          code.includes("self.can_talk")
         );
       },
       successMessage:
@@ -189,17 +193,9 @@ class ServiceDog(Dog):
         self.service_type = service_type
 
 def hierarchy_info(cls):
-    print(f"\\nClass hierarchy for {cls.__name__}:")
-    print(f"  MRO: {' -> '.join(c.__name__ for c in cls.__mro__)}")
-    print(f"  Direct parents: {[c.__name__ for c in cls.__bases__]}")
-    print(f"  All ancestors:")
-    for ancestor in cls.__mro__[1:-1]:  # skip self and object
-        direct = ancestor in cls.__bases__
-        relation = "direct parent" if direct else "ancestor"
-        print(f"    - {ancestor.__name__} ({relation})")
-    print(f"  issubclass checks:")
-    print(f"    ServiceDog is subclass of Dog:    {issubclass(cls, Dog)}")
-    print(f"    ServiceDog is subclass of Animal: {issubclass(cls, Animal)}")
+    # TODO: print the class hierarchy, direct parents,
+    # all ancestors, and subclass relationships
+    pass
 
 hierarchy_info(ServiceDog)
 `,
@@ -238,19 +234,21 @@ class Car(Vehicle):
 class BatteryMixin:
     """Mixin for electric vehicle battery status."""
     def charge_status(self):
-        return f"Battery: {self.battery_level}%"
+        # TODO: return f"Battery: {self.battery_level}%"
+        pass
 
     def is_low_battery(self):
-        return self.battery_level < 20
+        # TODO: return True if battery_level < 20
+        pass
 
 class ElectricCar(BatteryMixin, Car):
     def __init__(self, make, model, year, battery_level=100):
-        super().__init__(make, model, year)
-        self.battery_level = battery_level
+        # TODO: call super().__init__, store self.battery_level
+        pass
 
     def describe(self):
-        base = super().describe()
-        return f"{base} [Electric, {self.battery_level}% charge]"
+        # TODO: call super().describe(), append electric info, return result
+        pass
 
 tesla = ElectricCar("Tesla", "Model 3", 2024, battery_level=85)
 print(tesla.describe())        # 2024 Tesla Model 3 (4-door) [Electric, 85% charge]
@@ -266,7 +264,7 @@ print("Is Car?",     isinstance(tesla, Car))       # True
           code.includes("class BatteryMixin") &&
           code.includes("class ElectricCar") &&
           code.includes("super().__init__") &&
-          code.includes("battery_level")
+          code.includes("self.battery_level")
         );
       },
       successMessage:

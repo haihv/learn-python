@@ -34,15 +34,14 @@ rst()
 print(inc())   # 1
 `,
       validate: (code: string) => {
+        // Require actual nonlocal statement, not just mention in a comment
+        const hasNonlocal = /^[ \t]*nonlocal/m.test(code);
         return (
           code.includes("def make_counter") &&
-          code.includes("nonlocal") &&
+          hasNonlocal &&
           code.includes("count") &&
-          code.includes("return increment, reset") ||
-          (code.includes("def make_counter") &&
-           code.includes("nonlocal") &&
-           code.includes("return") &&
-           code.includes("reset"))
+          (code.includes("return increment, reset") ||
+            (code.includes("return") && code.includes("reset")))
         );
       },
       successMessage:
@@ -106,7 +105,8 @@ print(val1, val2, val3)   # 42 42 42
           code.includes("def once") &&
           code.includes("nonlocal") &&
           code.includes("has_run") &&
-          code.includes("wrapper")
+          code.includes("wrapper") &&
+          (code.includes("if has_run") || code.includes("if not has_run"))
         );
       },
       successMessage:
@@ -140,7 +140,8 @@ print(fib(40))   # 102334155  (fast because of memoization)
           code.includes("def simple_memoize") &&
           code.includes("cache") &&
           code.includes("args") &&
-          code.includes("wrapper")
+          code.includes("wrapper") &&
+          code.includes("cache[args]")
         );
       },
       successMessage:

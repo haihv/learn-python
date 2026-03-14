@@ -87,24 +87,24 @@ print(book1.is_available)     # True
 `,
   starterCode: `class Book:
     def __init__(self, title, author, isbn):
-        self.title = title
-        self.author = author
-        self.isbn = isbn
-        self.is_available = True
+        # TODO: store title, author, isbn; set is_available = True
+        pass
 
     def __str__(self):
-        return f"{self.title} by {self.author}"
+        # TODO: return "title by author"
+        pass
 
     def __repr__(self):
-        return f"Book({self.title!r}, {self.author!r}, {self.isbn!r})"
+        # TODO: return repr string e.g. "Book('title', 'author', 'isbn')"
+        pass
 
     def __eq__(self, other):
-        if not isinstance(other, Book):
-            return NotImplemented
-        return self.isbn == other.isbn
+        # TODO: compare ISBNs (return NotImplemented if other is not a Book)
+        pass
 
     def __hash__(self):
-        return hash(self.isbn)
+        # TODO: return hash(self.isbn)
+        pass
 
 
 class Member:
@@ -114,20 +114,16 @@ class Member:
         self.borrowed_books = []
 
     def borrow(self, book):
-        if not book.is_available:
-            raise ValueError(f"{book.title!r} is not available")
-        book.is_available = False
-        self.borrowed_books.append(book)
+        # TODO: check availability, update book, append to borrowed_books
+        pass
 
     def return_book(self, book):
-        if book not in self.borrowed_books:
-            raise ValueError(f"{self.name} does not have {book.title!r}")
-        self.borrowed_books.remove(book)
-        book.is_available = True
+        # TODO: check membership, update book, remove from list
+        pass
 
     def __str__(self):
-        n = len(self.borrowed_books)
-        return f"Member({self.name}, {n} books borrowed)"
+        # TODO: return "Member(name, N books borrowed)"
+        pass
 
 
 class Library:
@@ -143,17 +139,20 @@ class Library:
         self.members.append(member)
 
     def search_by_title(self, query):
-        q = query.lower()
-        return [b for b in self.books if q in b.title.lower()]
+        # TODO: case-insensitive title search
+        pass
 
     def available_books(self):
-        return [b for b in self.books if b.is_available]
+        # TODO: return list of available books
+        pass
 
     def __len__(self):
-        return len(self.books)
+        # TODO: return count of all books
+        pass
 
     def __contains__(self, book):
-        return any(b.isbn == book.isbn for b in self.books)
+        # TODO: check if a book (by ISBN) is in the catalog
+        pass
 
 
 # Demo

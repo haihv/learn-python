@@ -82,7 +82,8 @@ print(greet("Carol", loud=True))               # HELLO, CAROL!
           code.includes("def greet") &&
           code.includes("*, ") &&
           code.includes("loud") &&
-          code.includes("prefix")
+          code.includes("prefix") &&
+          code.includes("return")
         );
       },
       successMessage:
@@ -112,7 +113,8 @@ print("add works positionally:", add(5, 2))
       validate: (code: string) => {
         return (
           code.includes("def add") &&
-          code.includes(", /)")
+          code.includes(", /)") &&
+          (code.includes("return a + b") || code.includes("return a"))
         );
       },
       successMessage:
@@ -142,7 +144,8 @@ print(describe(10, normal=20, kw_only=30))
           code.includes("def describe") &&
           code.includes(", /,") &&
           code.includes(", *,") &&
-          code.includes("kw_only")
+          code.includes("kw_only") &&
+          code.includes("return")
         );
       },
       successMessage:

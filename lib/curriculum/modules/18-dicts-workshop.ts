@@ -24,11 +24,12 @@ export const dictsWorkshop: WorkshopModule = {
 print(registry)
 `,
       validate: (code: string) => {
+        // require setdefault on a real code line (not the "# Use setdefault" comment in starter)
         return (
-          code.includes("setdefault") &&
-          code.includes("Alice") &&
-          code.includes("Bob") &&
-          code.includes("Carol")
+          /^[^#\n]*\.setdefault\s*\(/m.test(code) &&
+          code.includes('"Alice"') &&
+          code.includes('"Bob"') &&
+          code.includes('"Carol"')
         );
       },
       successMessage:

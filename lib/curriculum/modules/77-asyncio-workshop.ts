@@ -127,9 +127,9 @@ async def main():
 asyncio.run(main())
 `,
       validate: (code: string) =>
-        code.includes("wait_for") &&
-        code.includes("TimeoutError") &&
-        code.includes("timeout"),
+        // wait_for and timeout appear only in a comment in the starter; require actual call
+        /^[^#\n]*wait_for\s*\(/m.test(code) &&
+        code.includes("TimeoutError"),
       successMessage:
         "wait_for() is essential for resilient async code — never let a slow server hang your program forever!",
     },
@@ -171,7 +171,8 @@ asyncio.run(main())
         code.includes("asyncio.Queue") &&
         code.includes("queue.put") &&
         code.includes("queue.get") &&
-        code.includes("asyncio.gather"),
+        // asyncio.gather is only in a comment in the starter; require it as real code
+        /^[^#\n]*asyncio\.gather/m.test(code),
       successMessage:
         "The producer/consumer pattern with asyncio.Queue is the backbone of async pipelines and stream processing!",
     },

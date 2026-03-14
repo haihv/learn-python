@@ -22,18 +22,14 @@ lines = [
     "Learning Python opens many career opportunities.\\n",
 ]
 
-with open("notes.txt", "w", encoding="utf-8") as f:
-    f.writelines(lines)
+# TODO: open "notes.txt" in write mode and write all lines using writelines()
+pass
 
 print("File written.")
 
 # Step 2: Read back and display numbered lines
-with open("notes.txt", "r", encoding="utf-8") as f:
-    contents = f.readlines()
-
-print(f"Total lines: {len(contents)}")
-for i, line in enumerate(contents, 1):
-    print(f"{i:2}. {line.rstrip()}")
+# TODO: open "notes.txt" in read mode, call readlines(), then print numbered lines
+pass
 `,
       validate: (code) =>
         code.includes('open("notes.txt"') || code.includes("open('notes.txt'"),
@@ -47,8 +43,8 @@ for i, line in enumerate(contents, 1):
       starterCode: `from datetime import date, timedelta
 
 # Create initial file with header
-with open("journal.txt", "w", encoding="utf-8") as f:
-    f.write("=== My Learning Journal ===\\n\\n")
+# TODO: open "journal.txt" in write mode and write "=== My Learning Journal ===\\n\\n"
+pass
 
 # Simulate adding entries over several days
 start = date(2024, 1, 1)
@@ -62,13 +58,13 @@ entries = [
 
 for i, entry in enumerate(entries):
     entry_date = start + timedelta(days=i)
-    with open("journal.txt", "a", encoding="utf-8") as f:
-        f.write(f"[{entry_date}] {entry}\\n")
+    # TODO: open "journal.txt" in append mode and write the dated entry line
+    pass
 
 # Read and display the final file
 print("=== Final Journal Contents ===")
-with open("journal.txt", "r", encoding="utf-8") as f:
-    print(f.read())
+# TODO: open "journal.txt" in read mode and print its full contents with f.read()
+pass
 `,
       validate: (code) =>
         (code.includes('"a"') || code.includes("'a'")) &&
@@ -85,7 +81,8 @@ with open("journal.txt", "r", encoding="utf-8") as f:
 # Create a directory structure
 base = Path("project")
 data_dir = base / "data"
-data_dir.mkdir(parents=True, exist_ok=True)
+# TODO: create the nested directory (hint: use parents=True and exist_ok=True)
+pass
 
 # Write several files using pathlib
 files_content = {
@@ -96,23 +93,22 @@ files_content = {
 
 for filename, content in files_content.items():
     file_path = data_dir / filename
-    file_path.write_text(content, encoding="utf-8")
+    # TODO: save content to file_path using Path's text-writing method
+    pass
     print(f"Created: {file_path}")
 
 print()
 
 # Find all .txt files recursively
 print("All .txt files found:")
-for txt_file in base.rglob("*.txt"):
-    size = txt_file.stat().st_size
-    print(f"  {txt_file} ({size} bytes)")
+# TODO: iterate over all .txt files under base using a recursive glob pattern
+pass
 
 print()
 
 # Read each file
-for txt_file in sorted(base.rglob("*.txt")):
-    print(f"--- {txt_file.name} ---")
-    print(txt_file.read_text(encoding="utf-8"))
+# TODO: iterate sorted .txt files, read each one with Path's text-reading method
+pass
 `,
       validate: (code) =>
         code.includes("Path") &&
@@ -145,16 +141,15 @@ students = []
 with open("students.csv", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
-headers = lines[0].strip().split(",")
+# TODO: parse headers from lines[0] by stripping whitespace and splitting on ","
+headers = []
 print(f"Columns: {headers}")
 
 for line in lines[1:]:
     if line.strip():  # skip empty lines
-        values = line.strip().split(",")
-        student = dict(zip(headers, values))
-        student["age"] = int(student["age"])
-        student["score"] = float(student["score"])
-        students.append(student)
+        # TODO: split line on "," and build a dict using zip(headers, values)
+        # convert "age" to int and "score" to float, then append to students
+        pass
 
 print(f"\\nLoaded {len(students)} students:")
 for s in students:
@@ -179,17 +174,16 @@ print(f"Top student: {top['name']} with {top['score']}")
 
 def write_config(path: str, settings: dict) -> None:
     """Write settings dict to a KEY=VALUE config file."""
-    lines = [f"{k}={v}\\n" for k, v in settings.items()]
-    Path(path).write_text("".join(lines), encoding="utf-8")
+    # TODO: build a list of "key=value\\n" strings from settings.items() and write to path
+    pass
 
 def read_config(path: str, defaults: dict | None = None) -> dict:
     """Read a KEY=VALUE config file. Returns defaults if file missing."""
     config = dict(defaults or {})
     p = Path(path)
 
-    if not p.exists():
-        print(f"Config file {path} not found, using defaults")
-        return config
+    # TODO: if p does not exist, print a message and return config early
+    pass
 
     try:
         with open(p, "r", encoding="utf-8") as f:
@@ -197,11 +191,9 @@ def read_config(path: str, defaults: dict | None = None) -> dict:
                 line = line.strip()
                 if not line or line.startswith("#"):
                     continue  # skip blank lines and comments
-                if "=" not in line:
-                    print(f"Warning: line {line_num} malformed: {line!r}")
-                    continue
-                key, value = line.split("=", 1)
-                config[key.strip()] = value.strip()
+                # TODO: skip malformed lines (no "="), then split on "=" (max 1 split)
+                # and store key.strip() -> value.strip() in config
+                pass
     except OSError as e:
         print(f"Error reading config: {e}")
 

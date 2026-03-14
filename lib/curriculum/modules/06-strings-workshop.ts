@@ -58,7 +58,7 @@ age = 25
 # TODO: Use .format() with named placeholders {name}, {age}
 `,
       validate: (code: string) =>
-        code.includes(".format("),
+        /^[^#\n]*\.format\s*\(/m.test(code),
       successMessage:
         "str.format() is older but still widely used. Named placeholders ({name}) make code more self-documenting. f-strings are generally preferred for new code, but you'll see .format() in many existing codebases.",
     },
@@ -85,7 +85,12 @@ print(poem)
 print(manual)
 `,
       validate: (code: string) =>
-        (code.includes('"""') || code.includes("'''")) && code.includes("\\n"),
+        (code.includes('"""') || code.includes("'''")) &&
+        code.includes("\\n") &&
+        // starter has triple-quoted stub; require actual content (not just empty triple-quote)
+        !/poem\s*=\s*"""\s*"""/s.test(code) &&
+        // starter has manual = ""; require actual \n content in a non-empty string
+        !/^[^#\n]*manual\s*=\s*""\s*$/m.test(code),
       successMessage:
         "Triple-quoted strings preserve newlines literally — great for long text, SQL queries, and docstrings. \\n is the escape sequence for a newline character and works in any string type.",
     },
@@ -101,7 +106,8 @@ result = text
 print(result)
 `,
       validate: (code: string) =>
-        code.includes(".strip()") && code.includes(".title()"),
+        // require both on real code lines, not just the TODO comment
+        /^[^#\n]*\.strip\s*\(\)/m.test(code) && /^[^#\n]*\.title\s*\(\)/m.test(code),
       successMessage:
         "Method chaining is an elegant Python pattern. Because each string method returns a new string, you can chain calls directly. Order matters: strip first (removes whitespace), then title (capitalizes words). If you called title first, the spaces would affect word detection.",
     },

@@ -18,14 +18,12 @@ import json
 
 url = "https://httpbin.org/get"
 
-# Make the GET request
-with urllib.request.urlopen(url) as response:
-    # Read and decode the response body
-    body = response.read().decode('utf-8')
-    print(f"Status: {response.status}")
+# Make the GET request — open the URL, read and decode the response body as UTF-8
+body = None  # TODO: use a with-statement to open the URL, then read and decode the body
+print(f"Status: ...")  # TODO: print the HTTP status code from the response object
 
 # Parse the JSON response
-data = json.loads(body)
+data = None  # TODO: parse body from a JSON string into a Python dict
 
 # Print specific fields
 print(f"URL: {data['url']}")
@@ -49,15 +47,15 @@ import json
 
 base_url = "https://httpbin.org/get"
 
-# Build query parameters safely
+# Build query parameters safely — encode the params dict as a URL query string
 params = {'name': 'python', 'version': '3'}
-query_string = urllib.parse.urlencode(params)
-full_url = f"{base_url}?{query_string}"
+query_string = None  # TODO: use urllib.parse to encode the params dict as a query string
+full_url = None      # TODO: join base_url with '?' and the encoded query string
 
 print(f"Requesting: {full_url}")
 
 with urllib.request.urlopen(full_url) as response:
-    data = json.loads(response.read().decode('utf-8'))
+    data = None  # TODO: read, decode and parse the response body as JSON
 
 # httpbin echoes back the query parameters under "args"
 print(f"\\nArgs received by server: {data['args']}")
@@ -87,22 +85,14 @@ payload = {
     "features": ["easy", "powerful", "readable"],
 }
 
-# Encode the body as UTF-8 bytes
-body = json.dumps(payload).encode('utf-8')
+# Serialize payload to bytes ready for sending
+body = None  # TODO: use json.dumps on payload, then convert the string to bytes
 
-# Build the request with method and headers
-req = urllib.request.Request(
-    url,
-    data=body,
-    method='POST',
-    headers={
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
-)
+# Build the request with method='POST' and the appropriate content-type header
+req = None  # TODO: create a Request object with the url, body, POST method, and json headers
 
 with urllib.request.urlopen(req) as response:
-    result = json.loads(response.read().decode('utf-8'))
+    result = None  # TODO: read, decode and json.loads the response body
 
 # "json" field contains the parsed body we sent
 print(f"Method used: {result['method']}")
@@ -126,18 +116,11 @@ import json
 
 url = "https://httpbin.org/headers"
 
-# Add custom headers via the Request object
-req = urllib.request.Request(
-    url,
-    headers={
-        'User-Agent': 'PythonCourse/1.0',
-        'Accept': 'application/json',
-        'X-Request-ID': 'lesson-72',
-    }
-)
+# Add custom headers via the Request object — pass a headers={} dict
+req = None  # TODO: build a Request object with custom header dict containing identifying and content headers
 
 with urllib.request.urlopen(req) as response:
-    data = json.loads(response.read().decode('utf-8'))
+    data = None  # TODO: read, decode and parse the response body as JSON
 
 # httpbin echoes all received headers
 received_headers = data['headers']
@@ -167,19 +150,13 @@ import json
 def safe_fetch(url: str) -> dict | None:
     """Fetch a URL, handling HTTP and network errors gracefully."""
     try:
-        with urllib.request.urlopen(url, timeout=10) as response:
-            return json.loads(response.read().decode('utf-8'))
-
+        pass  # TODO: open the URL with urlopen(url, timeout=10), read/decode/json.loads and return
     except urllib.error.HTTPError as e:
-        # Server returned a 4xx or 5xx response
-        print(f"HTTP Error: {e.code} {e.reason}")
-        print(f"URL: {e.url}")
-        return None
-
+        # TODO: print e.code, e.reason, e.url and return None
+        pass
     except urllib.error.URLError as e:
-        # Network failure: DNS resolution, connection refused, etc.
-        print(f"Network Error: {e.reason}")
-        return None
+        # TODO: print e.reason and return None
+        pass
 
 # Test with a 404 URL
 print("--- Fetching 404 ---")

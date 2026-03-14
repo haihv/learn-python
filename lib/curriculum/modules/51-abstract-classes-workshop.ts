@@ -192,12 +192,15 @@ print(f"\\nJsonUser bases: {JsonUser.__bases__}")
 print(f"XmlConfig bases: {XmlConfig.__bases__}")
 `,
       validate: (code: string) => {
+        // require actual serialize() implementations (not just pass)
+        const serializeReturns = (code.match(/def serialize[\s\S]*?return /g) ?? []).length;
         return (
           code.includes("class Serializable(Protocol)") &&
           code.includes("def serialize") &&
           code.includes("class JsonUser") &&
           code.includes("class XmlConfig") &&
-          code.includes("def save_all")
+          code.includes("def save_all") &&
+          serializeReturns >= 2
         );
       },
       successMessage:
@@ -220,7 +223,8 @@ class JsonUser:
         self.name = name
 
     def serialize(self) -> str:
-        return f'{{"name": "{self.name}"}}'
+        # TODO: return JSON string like '{"name": "Alice"}'
+        pass
 
 
 class Counter:
@@ -237,7 +241,8 @@ class LogEntry:
         self.message = message
 
     def serialize(self) -> str:
-        return f"LOG: {self.message}"
+        # TODO: return f"LOG: {self.message}"
+        pass
 
 
 # Mixed collection of objects
@@ -261,11 +266,14 @@ for obj in objects:
         print(f"  {type(obj).__name__}")
 `,
       validate: (code: string) => {
+        // require students to implement serialize() in at least two classes (not just pass)
+        const serializeReturns = (code.match(/def serialize[\s\S]*?return /g) ?? []).length;
         return (
           code.includes("@runtime_checkable") &&
           code.includes("isinstance") &&
           code.includes("Serializable") &&
-          code.includes("Protocol")
+          code.includes("Protocol") &&
+          serializeReturns >= 2
         );
       },
       successMessage:

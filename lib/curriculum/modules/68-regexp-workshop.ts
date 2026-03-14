@@ -17,12 +17,12 @@ export const regexpWorkshop: WorkshopModule = {
 
 text = "I have 3 cats, 12 fish, and 1 dog. That's 42 legs in total counting 4 per animal."
 
-# Extract all number strings
-numbers = re.findall(r'\\d+', text)
+# Extract all number strings using re.findall with r'\\d+'
+numbers = None  # TODO: use re.findall with the digit pattern to get all number strings
 print(f"Found numbers: {numbers}")
 
 # Convert and sum
-total = sum(int(n) for n in numbers)
+total = None  # TODO: sum each item in numbers after converting to int
 print(f"Sum of all numbers: {total}")
 `,
       validate: (code) =>
@@ -38,15 +38,18 @@ print(f"Sum of all numbers: {total}")
 
 date_str = "2024-01-15"
 
-# Pattern with three capturing groups
+# Pattern with three capturing groups — wrap year, month, day each in (...)
 pattern = r'(\\d{4})-(\\d{2})-(\\d{2})'
 
-m = re.search(pattern, date_str)
+m = None  # TODO: search pattern in date_str — use re.search and store the match object
 if m:
     print(f"Full match: {m.group(0)}")
-    print(f"Year:  {m.group(1)}")
-    print(f"Month: {m.group(2)}")
-    print(f"Day:   {m.group(3)}")
+    year  = None  # TODO: extract the year using the first capturing group
+    month = None  # TODO: extract the month using the second capturing group
+    day   = None  # TODO: extract the day using the third capturing group
+    print(f"Year:  {year}")
+    print(f"Month: {month}")
+    print(f"Day:   {day}")
     print(f"All groups: {m.groups()}")
 `,
       validate: (code) =>
@@ -65,17 +68,20 @@ if m:
 
 date_str = "Meeting scheduled for 2024-01-15 at noon"
 
-# Named groups make patterns self-documenting
-pattern = r'(?P<year>\\d{4})-(?P<month>\\d{2})-(?P<day>\\d{2})'
+# Named groups make patterns self-documenting — use (?P<name>...) syntax
+# TODO: write a pattern with named groups for year (4 digits), month (2), day (2)
+pattern = None
 
 m = re.search(pattern, date_str)
 if m:
-    print(f"Year:  {m.group('year')}")
-    print(f"Month: {m.group('month')}")
-    print(f"Day:   {m.group('day')}")
+    year  = None  # TODO: access the 'year' named group via m.group(...)
+    month = None  # TODO: access the 'month' named group via m.group(...)
+    day   = None  # TODO: access the 'day' named group via m.group(...)
+    print(f"Year:  {year}")
+    print(f"Month: {month}")
+    print(f"Day:   {day}")
 
-    # groupdict() gives all named captures as a dict
-    parsed = m.groupdict()
+    parsed = None  # TODO: call the method on m that returns all named captures as a dict
     print(f"\\nParsed dict: {parsed}")
     print(f"ISO format: {parsed['year']}-{parsed['month']}-{parsed['day']}")
 `,
@@ -100,8 +106,8 @@ Do not reply to auto@generated.net.
 """
 
 # Replace the local part of every email with ***
-# Capture the @ + domain so we can keep it
-censored = re.sub(r'[\\w.+-]+(@[\\w-]+\\.[\\w.]+)', r'***\\1', text)
+# Capture the @ + domain so we can keep it: r'[\\w.+-]+(@[\\w-]+\\.[\\w.]+)'
+censored = None  # TODO: call re.sub with the email pattern and r'***\\1' replacement
 
 print("Original:")
 print(text)
@@ -124,14 +130,17 @@ print(censored)
 text = "Alice and Bob visited Paris and London last Summer for a Python Conference."
 
 # Compile the pattern once — efficient for repeated use
-capital_word = re.compile(r'\\b[A-Z][a-z]*\\b')
+# TODO: use the module-level function that pre-compiles a regex pattern object
+capital_word = None  # hint: the pattern matches a capital letter followed by lowercase letters
 
 print("Capitalized words and their positions:")
-for m in capital_word.finditer(text):
-    print(f"  '{m.group()}' at position {m.start()}")
+# TODO: call the iterator method on capital_word that yields match objects, then loop
+for m in []:  # replace [] with the correct iterator call
+    pos = None  # TODO: get the match start position from m
+    print(f"  '{m.group()}' at position {pos}")
 
 # Also count them
-all_capitals = capital_word.findall(text)
+all_capitals = None  # TODO: call the findall method on capital_word to get all matches
 print(f"\\nTotal capitalized words: {len(all_capitals)}")
 print(f"Words: {all_capitals}")
 `,

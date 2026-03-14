@@ -138,7 +138,8 @@ class Circle:
         self.radius = radius
 
     def draw(self) -> str:
-        return f"Circle(r={self.radius})"
+        # TODO: return f"Circle(r={self.radius})"
+        pass
 
 
 class Square:
@@ -146,7 +147,8 @@ class Square:
         self.side = side
 
     def draw(self) -> str:
-        return f"Square(side={self.side})"
+        # TODO: return f"Square(side={self.side})"
+        pass
 
 
 class Triangle:
@@ -177,7 +179,10 @@ print(Square(4.0).draw())
           code.includes("def draw") &&
           code.includes("class Circle") &&
           code.includes("class Square") &&
-          code.includes("def render_all")
+          code.includes("def render_all") &&
+          // ensure students actually implement draw() — not just leave pass
+          (code.includes('return f"Circle') || code.includes("return f'Circle")) &&
+          (code.includes('return f"Square') || code.includes("return f'Square"))
         );
       },
       successMessage:
@@ -191,7 +196,8 @@ print(Square(4.0).draw())
 
 def transform(func: Callable[[int], str], values: list[int]) -> list[str]:
     """Apply func to each value and return list of results."""
-    return [func(v) for v in values]
+    # TODO: apply func to each element in values and return the list of results
+    pass
 
 
 # @overload lets you declare multiple signatures for one function
@@ -202,9 +208,8 @@ def stringify(x: list[int]) -> list[str]: ...
 
 def stringify(x):
     """Convert int to str, or list[int] to list[str]."""
-    if isinstance(x, list):
-        return [str(item) for item in x]
-    return str(x)
+    # TODO: if x is a list, return list of str(item) for each item; else return str(x)
+    pass
 
 
 # Test transform with a Callable
@@ -219,11 +224,16 @@ print(f"stringify(42): {stringify(42)!r}")
 print(f"stringify([1, 2, 3]): {stringify([1, 2, 3])}")
 `,
       validate: (code: string) => {
+        // also verify students actually implement the bodies (not just leave pass)
+        const hasTransformReturn = /def transform[^]*?return/.test(code);
+        const hasStringifyReturn = /def stringify\(x\)[^]*?return/.test(code);
         return (
           code.includes("Callable") &&
           code.includes("@overload") &&
           code.includes("def stringify") &&
-          code.includes("def transform")
+          code.includes("def transform") &&
+          hasTransformReturn &&
+          hasStringifyReturn
         );
       },
       successMessage:

@@ -150,7 +150,8 @@ if __name__ == "__main__":
     pass
 `,
       validate: (code: string) =>
-        code.includes("ProcessPoolExecutor") &&
+        // ProcessPoolExecutor appears only in a comment in the starter; require it as real code
+        /^[^#\n]*ProcessPoolExecutor/m.test(code) &&
         code.includes("ThreadPoolExecutor") &&
         code.includes("cpu_task"),
       successMessage:

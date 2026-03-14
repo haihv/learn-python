@@ -33,7 +33,9 @@ print("By age:", [p["name"] for p in by_age])
         code.includes("sorted") &&
         code.includes('key=') &&
         code.includes('"age"') &&
-        code.includes('"name"'),
+        code.includes('"name"') &&
+        // Starter only sorts by age; require student to also implement the by-name sort
+        /^[ \t]*by_name\s*=/m.test(code),
       successMessage:
         "The key= parameter is the heart of Python sorting. Every call to key= is made exactly once per element — efficient even for expensive computations.",
     },
@@ -93,7 +95,9 @@ print("By score asc:", [r[0] for r in by_score_asc])
 `,
       validate: (code: string) =>
         code.includes("itemgetter") &&
-        code.includes("sorted"),
+        code.includes("sorted") &&
+        // Require the combined sort key with negation — the main task of this step
+        (code.includes("-r[1]") || code.includes("-r[0]")),
       successMessage:
         "operator.itemgetter is a C-level function object — it avoids the overhead of calling a Python lambda on every element, which matters for large datasets.",
     },
@@ -121,7 +125,9 @@ target = 70
 # print(f"Score {target} is rank {rank} from the top")
 `,
       validate: (code: string) =>
-        code.includes("bisect.insort") || code.includes("insort("),
+        (code.includes("bisect.insort") || code.includes("insort(")) &&
+        // Require bisect_left for the ranking part — the second task of this step
+        code.includes("bisect_left"),
       successMessage:
         "bisect.insort is perfect for leaderboards, event timelines, and any scenario where you need a list that stays sorted as items arrive. The search is O(log n) — insertion shifts elements, so the bottleneck is the list shift, not the search.",
     },
@@ -164,7 +170,9 @@ for priority, name in tasks:
 `,
       validate: (code: string) =>
         code.includes("heapq.heappush") &&
-        code.includes("heapq.heappop"),
+        code.includes("heapq.heappop") &&
+        // Require the counter increment for FIFO tie-breaking — the main task of this step
+        (code.includes("counter += 1") || code.includes("counter+=1")),
       successMessage:
         "The (priority, counter, item) pattern is the standard recipe for a stable priority queue in Python. It appears in the official heapq docs. The counter acts as a tiebreaker without requiring the items themselves to be comparable.",
     },

@@ -240,7 +240,8 @@ print(_buf.getvalue())
       description: "TestCalculator must test that divide raises ZeroDivisionError",
       validate: (code: string, _stdout: string) =>
         code.includes("ZeroDivisionError") &&
-        code.includes("assertRaises"),
+        // assertRaises appears only in a comment in the starter; require actual usage
+        /^[ \t]*with\s+self\.assertRaises/m.test(code),
     },
     {
       name: "Tests history recording",
@@ -251,8 +252,11 @@ print(_buf.getvalue())
     {
       name: "All tests pass",
       description: "Running the test suite must produce output containing 'OK' — route output to stdout with TextTestRunner(stream=buf) and print(buf.getvalue())",
-      validate: (_code: string, stdout: string) =>
-        stdout.includes("OK") && !stdout.includes("FAILED"),
+      validate: (code: string, stdout: string) =>
+        stdout.includes("OK") &&
+        !stdout.includes("FAILED") &&
+        // Require actual assertions — with all-pass test bodies, trivially "OK" without assertions
+        /^[ \t]*self\.assert\w+\(/m.test(code),
     },
   ],
 };

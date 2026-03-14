@@ -36,7 +36,8 @@ if __name__ == "__main__":
       validate: (code: string) =>
         code.includes("unittest.TestCase") &&
         code.includes("def test_") &&
-        code.includes("assertEqual"),
+        // assertEqual appears only in comments in the starter; require actual assertion
+        /^[ \t]*self\.assertEqual\(/m.test(code),
       successMessage:
         "Your first test suite! Three tests, each focused on one scenario.",
     },
@@ -121,7 +122,8 @@ if __name__ == "__main__":
       validate: (code: string) =>
         code.includes("def setUp") &&
         code.includes("def tearDown") &&
-        code.includes("self.cart"),
+        // self.cart appears only in comments in the starter; require actual assignment
+        /^[ \t]*self\.cart\s*=\s*ShoppingCart\(\)/m.test(code),
       successMessage:
         "setUp/tearDown ensures test isolation — each test starts fresh regardless of what others did!",
     },

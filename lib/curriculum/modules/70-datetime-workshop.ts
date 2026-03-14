@@ -18,12 +18,12 @@ export const datetimeWorkshop: WorkshopModule = {
 # Create the target datetime
 dt = datetime(2024, 3, 15, 14, 30)
 
-# Format as "March 15, 2024 at 02:30 PM"
-formatted = dt.strftime('%B %d, %Y at %I:%M %p')
+# Format as "March 15, 2024 at 02:30 PM" using strftime
+formatted = None  # TODO: use the datetime formatting method with the right format codes for month name, day, year, 12-hour time and AM/PM
 print(f"Formatted: {formatted}")
 
-# Day of week
-day_name = dt.strftime('%A')
+# Day of week — use the full weekday name directive
+day_name = None  # TODO: format dt to get the full weekday name
 print(f"Day of week: {day_name}")
 
 # ISO week number
@@ -49,21 +49,21 @@ print("\\nFormat assertion passed!")
 
 date_string = "15/03/2024 14:30:00"
 
-# Parse using the correct format
-dt = datetime.strptime(date_string, '%d/%m/%Y %H:%M:%S')
+# Parse using the correct format string matching day/month/year hour:min:sec
+dt = None  # TODO: parse date_string into a datetime object using the parsing class method
 print(f"Parsed: {dt}")
 print(f"Type: {type(dt).__name__}")
 
-# Convert to ISO 8601
-iso = dt.isoformat()
+# Convert to ISO 8601 — use the method that returns an ISO-formatted string
+iso = None  # TODO: call the standard ISO format method on dt
 print(f"ISO 8601: {iso}")
 
 # US-style format: "03/15/2024"
-us_format = dt.strftime('%m/%d/%Y')
+us_format = None  # TODO: format dt as month/day/year
 print(f"US format: {us_format}")
 
 # Verbose format
-verbose = dt.strftime('%A, %B %d, %Y at %I:%M %p')
+verbose = None  # TODO: format dt with full weekday, full month name, day, year, 12-hour time and AM/PM
 print(f"Verbose: {verbose}")
 `,
       validate: (code) =>
@@ -82,17 +82,17 @@ print(f"Verbose: {verbose}")
 today = date.today()
 print(f"Today: {today}")
 
-# Days until a future deadline
+# Days until a future deadline — subtract two date objects to get a timedelta
 deadline = date(2025, 12, 31)
-days_until = (deadline - today).days
+days_until = None  # TODO: subtract deadline from today, then get the .days attribute
 print(f"Days until Dec 31, 2025: {days_until}")
 
 # 90 days from today
-ninety_days = today + timedelta(days=90)
+ninety_days = None  # TODO: advance today by 90 days using date arithmetic
 print(f"90 days from today: {ninety_days}")
 
 # 180 days ago
-six_months_ago = today - timedelta(days=180)
+six_months_ago = None  # TODO: go back 180 days from today using date arithmetic
 print(f"180 days ago: {six_months_ago}")
 
 # Difference between the two computed dates
@@ -122,19 +122,19 @@ date_strings = [
     "2021-12-25",
 ]
 
-# Parse all strings into datetime objects
-dates = [datetime.strptime(s, '%Y-%m-%d') for s in date_strings]
+# Parse all strings into datetime objects using a list comprehension
+dates = None  # TODO: parse each string in date_strings into a datetime object — use a list comprehension
 
-# Find earliest and latest
-earliest = min(dates)
-latest = max(dates)
+# Find earliest and latest — datetime objects are directly comparable
+earliest = None  # TODO: use the built-in function that returns the smallest element
+latest = None    # TODO: use the built-in function that returns the largest element
 
 print(f"Earliest: {earliest.strftime('%B %d, %Y')}")
 print(f"Latest:   {latest.strftime('%B %d, %Y')}")
 print(f"Span: {(latest - earliest).days} days")
 
 # Sort all dates
-sorted_dates = sorted(dates)
+sorted_dates = None  # TODO: use the built-in function that returns a new sorted list
 print("\\nAll dates in order:")
 for d in sorted_dates:
     print(f"  {d.strftime('%Y-%m-%d')}")
@@ -153,21 +153,21 @@ for d in sorted_dates:
       starterCode: `from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-# Create a specific UTC moment
+# Create a specific UTC moment — pass tzinfo=timezone.utc
 utc_dt = datetime(2024, 7, 4, 18, 0, 0, tzinfo=timezone.utc)
 print(f"UTC time:        {utc_dt}")
 print(f"UTC isoformat:   {utc_dt.isoformat()}")
 
 # Convert to New York (handles DST automatically)
 ny_tz = ZoneInfo("America/New_York")
-ny_dt = utc_dt.astimezone(ny_tz)
+ny_dt = None  # TODO: convert utc_dt to the ny_tz timezone using the conversion method
 print(f"\\nNew York time:   {ny_dt}")
 print(f"UTC offset:      {ny_dt.utcoffset()}")
 print(f"Timezone name:   {ny_dt.tzname()}")
 
 # Also convert to a few other zones
 for tz_name in ["Europe/London", "Asia/Tokyo", "Australia/Sydney"]:
-    local = utc_dt.astimezone(ZoneInfo(tz_name))
+    local = None  # TODO: convert utc_dt to each ZoneInfo timezone
     print(f"{tz_name:<25} {local.strftime('%Y-%m-%d %H:%M %Z')}")
 `,
       validate: (code) =>

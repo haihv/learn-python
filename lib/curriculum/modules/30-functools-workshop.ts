@@ -108,8 +108,10 @@ print(add.__name__)     # Should print 'add', not 'wrapper'
 print(add.__doc__)      # Should print the original docstring
 `,
       validate: (code: string) => {
+        // Must use @wraps(func) as actual decorator, not just in a comment
+        const hasWrapsDecorator = /^[ \t]*@wraps\(func\)/m.test(code);
         return (
-          code.includes("@wraps") &&
+          hasWrapsDecorator &&
           code.includes("log_calls") &&
           code.includes("__name__")
         );

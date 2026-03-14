@@ -180,9 +180,11 @@ for value in [5, 3, 7, 10]:
 # Sent 10, running total: 25
 `,
       validate: (code: string) => {
+        // Require actual `value = yield` expression, not just the word "yield" in a TODO comment
+        const hasYieldExpr = /^[ \t]*value\s*=\s*yield/m.test(code);
         return (
           code.includes("def accumulator") &&
-          code.includes("yield") &&
+          hasYieldExpr &&
           code.includes(".send(") &&
           code.includes("next(gen)")
         );

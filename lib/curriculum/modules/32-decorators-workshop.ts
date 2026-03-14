@@ -19,11 +19,9 @@ from functools import wraps
 def timer(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        start = time.perf_counter()
-        result = func(*args, **kwargs)
-        elapsed = time.perf_counter() - start
-        print(f"{func.__name__} took {elapsed:.4f}s")
-        return result
+        # TODO: record start, call func, compute elapsed,
+        # print f"{func.__name__} took {elapsed:.4f}s", return result
+        pass
     return wrapper
 
 @timer
@@ -58,14 +56,9 @@ def retry(times=3):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            last_exc = None
-            for attempt in range(times):
-                try:
-                    return func(*args, **kwargs)
-                except Exception as e:
-                    last_exc = e
-                    print(f"Attempt {attempt + 1} failed: {e}")
-            raise last_exc
+            # TODO: loop range(times), try calling func, catch errors,
+            # re-raise after all retries are exhausted
+            pass
         return wrapper
     return decorator
 
@@ -88,7 +81,8 @@ print(f"Final result: {result}")  # success!
           code.includes("retry") &&
           code.includes("times") &&
           code.includes("attempt") &&
-          (code.includes("raise") || code.includes("Exception"))
+          code.includes("Exception") &&
+          code.includes("raise")
         );
       },
       successMessage:
@@ -105,11 +99,9 @@ def simple_cache(func):
 
     @wraps(func)
     def wrapper(*args):
-        if args in cache:
-            return cache[args]
-        result = func(*args)
-        cache[args] = result
-        return result
+        # TODO: if args in cache return it, else compute,
+        # store cache[args] = result, return result
+        pass
 
     wrapper.cache = cache  # expose cache for inspection
     return wrapper
@@ -129,7 +121,8 @@ print(len(fib.cache))     # Number of cached values
           code.includes("simple_cache") &&
           code.includes("cache") &&
           code.includes("args") &&
-          code.includes("fib")
+          code.includes("fib") &&
+          code.includes("in cache")
         );
       },
       successMessage:
@@ -146,13 +139,9 @@ def validate_types(*types):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            for i, (arg, expected) in enumerate(zip(args, types)):
-                if not isinstance(arg, expected):
-                    raise TypeError(
-                        f"Argument {i} expected {expected.__name__}, "
-                        f"got {type(arg).__name__}"
-                    )
-            return func(*args, **kwargs)
+            # TODO: pair each arg with its expected type, check the type,
+            # raise an error on mismatch, then call and return func(*args, **kwargs)
+            pass
         return wrapper
     return decorator
 
@@ -200,10 +189,9 @@ def log_level(level="INFO"):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            print(f"[{level}] Calling {func.__name__} with {args}")
-            result = func(*args, **kwargs)
-            print(f"[{level}] {func.__name__} returned {result!r}")
-            return result
+            # TODO: print a bracketed label before calling func,
+            # call func, print a bracketed label after, return result
+            pass
         return wrapper
     return decorator
 
@@ -221,9 +209,10 @@ print(f"Final: {result}")
         return (
           code.includes("log_level") &&
           code.includes("timer") &&
-          code.includes("level") &&
           code.includes("@timer") &&
-          code.includes("@log_level")
+          code.includes("@log_level") &&
+          code.includes("{level}") &&
+          code.includes("func.__name__")
         );
       },
       successMessage:

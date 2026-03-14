@@ -28,7 +28,7 @@ for i, fruit in enumerate(fruits, start=1):
 # 2: cherry
 # 3: date
 `,
-      validate: (code: string) => code.includes("enumerate("),
+      validate: (code: string) => /^[^#\n]*enumerate\s*\(/m.test(code),
       successMessage:
         "enumerate() is the Pythonic way to get an index while iterating. It returns (index, value) pairs. The start parameter lets you begin counting from any number — useful for 1-based display.",
     },
@@ -53,7 +53,7 @@ scores = [95, 87, 72]
 # Bob: 87
 # Charlie: 72
 `,
-      validate: (code: string) => code.includes("zip("),
+      validate: (code: string) => /^[^#\n]*zip\s*\(/m.test(code),
       successMessage:
         "zip() is perfect for parallel iteration. It creates an iterator of tuples. Use list(zip(a, b)) to materialize it. For strict length matching (raise error if unequal length), use zip(a, b, strict=True) in Python 3.10+.",
     },
@@ -83,7 +83,7 @@ print("Reversed:")
 print("Sorted:")
 `,
       validate: (code: string) =>
-        code.includes("reversed(") && code.includes("sorted("),
+        /^[^#\n]*reversed\s*\(/m.test(code) && /^[^#\n]*sorted\s*\(/m.test(code),
       successMessage:
         "reversed() and sorted() return iterators/lists without modifying the original. Compare with list.reverse() and list.sort() which modify in-place. The key parameter of sorted() is very powerful: sorted(words, key=len) sorts by word length.",
     },
@@ -106,7 +106,7 @@ scores = [95, 87, 72, 88]
 # 4. Diana — 88 points
 `,
       validate: (code: string) =>
-        code.includes("enumerate(") && code.includes("zip("),
+        /^[^#\n]*enumerate\s*\(/m.test(code) && /^[^#\n]*zip\s*\(/m.test(code),
       successMessage:
         "Combining enumerate and zip is very common in Python. Notice the tuple unpacking in for i, (name, score) in enumerate(zip(...)). The parentheses are needed because zip yields (name, score) tuples, and we're nesting that inside enumerate's (i, item) tuple.",
     },
@@ -147,7 +147,7 @@ cities = ["New York", "London"]
 # Charlie — N/A
 `,
       validate: (code: string) =>
-        code.includes("itertools.chain") && code.includes("zip_longest"),
+        /^[^#\n]*itertools\.chain/m.test(code) && /^[^#\n]*zip_longest/m.test(code),
       successMessage:
         "itertools is one of Python's most useful standard library modules. chain is great for combining iterables without creating intermediate lists. zip_longest solves the 'unequal length' problem that regular zip handles by truncating.",
     },

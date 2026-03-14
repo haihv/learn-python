@@ -68,11 +68,14 @@ logging.basicConfig(
 logger = logging.getLogger("myapp")
 logger.setLevel(logging.DEBUG)
 
-# Create a StreamHandler for console output at INFO level
+# Create a StreamHandler for console output, set its level to INFO
+console_handler = None  # TODO: create a handler that writes to the console, set its level to INFO
 
-# Create a FileHandler for 'app.log' at DEBUG level
+# Create a handler that writes to 'app.log', set its level to DEBUG
+file_handler = None  # TODO: create a handler for a file named 'app.log', set its level to DEBUG
 
 # Add both handlers to the logger
+# TODO: register each handler on the logger object
 
 # Test by logging at various levels — DEBUG should only go to file
 logger.debug("This should only appear in app.log")
@@ -98,12 +101,16 @@ logger.setLevel(logging.DEBUG)
 # Console handler: minimal format "%(levelname)s: %(message)s"
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
-# Create and set a minimal formatter
+# Create a format object for the console with minimal output and attach it to the handler
+console_formatter = None  # TODO: create a format object with level and message fields
+# TODO: attach console_formatter to console_handler using the appropriate method
 
 # File handler: detailed format with asctime, name, levelname, filename, lineno, message
 file_handler = logging.FileHandler("detailed.log")
 file_handler.setLevel(logging.DEBUG)
-# Create and set a detailed formatter
+# Create a format object for the file with all context fields and attach it to the handler
+file_formatter = None  # TODO: create a format object including timestamp, logger name, level, file, line, and message
+# TODO: attach file_formatter to file_handler using the appropriate method
 
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
@@ -134,16 +141,16 @@ logging.basicConfig(
 logger = logging.getLogger("webserver")
 
 def handle_request(request_id, path):
-    # Log each step of request handling using extra={"request_id": request_id}
-    logger.info("Request received: %s", path, extra={"request_id": request_id})
-    logger.info("Sending response", extra={"request_id": request_id})
+    # Log each step, injecting the request_id context into the log record
+    pass  # TODO: log "Request received: %s" with path, injecting {"request_id": request_id} as extra context
+          # TODO: log "Sending response" with the same injected context
 
 # Simulate two concurrent requests
 handle_request("req-001", "/api/users")
 handle_request("req-002", "/api/posts")
 
-# Bonus: Use LoggerAdapter to avoid passing extra every time
-adapter = logging.LoggerAdapter(logger, {"request_id": "req-003"})
+# Bonus: wrap the logger so you don't have to repeat the extra dict on every call
+adapter = None  # TODO: create an adapter that pre-binds {"request_id": "req-003"} to the logger
 adapter.info("Using LoggerAdapter for cleaner code")
 `,
       validate: (code: string) =>

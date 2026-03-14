@@ -19,19 +19,19 @@ batch_a = [10, 20, 30, 40]
 batch_b = [50, 60, 70, 80]
 batch_c = [90, 100, 110, 120]
 
-# Flatten all batches into one stream
-all_data = itertools.chain.from_iterable([batch_a, batch_b, batch_c])
+# TODO: flatten all three batches into a single lazy stream using chain
+all_data = None  # replace with the appropriate itertools call
 
-# Take first 8 values
-first_eight = list(itertools.islice(all_data, 8))
+# TODO: take only the first 8 elements from all_data using islice
+first_eight = []  # replace with list(...)
 print("First 8:", first_eight)
 
-# Running sum of first_eight
-running_sum = list(itertools.accumulate(first_eight))
+# TODO: compute the running sum of first_eight using accumulate
+running_sum = []  # replace with list(...)
 print("Running sum:", running_sum)
 
-# Running max
-running_max = list(itertools.accumulate(first_eight, max))
+# TODO: compute the running max of first_eight — pass max as the second arg to accumulate
+running_max = []  # replace with list(...)
 print("Running max:", running_max)
 
 # Combine chain and islice in a pipeline
@@ -56,16 +56,16 @@ sizes = ["small", "medium", "large"]
 formats = ["json", "csv", "xml"]
 priorities = ["high", "low"]
 
-# Generate all test configurations (3 x 3 = 9 cases)
-test_matrix = list(itertools.product(sizes, formats))
+# TODO: generate the cartesian product of sizes x formats (hint: itertools has a function for this)
+test_matrix = []  # replace with the full list
 print(f"Test matrix ({len(test_matrix)} cases):")
 for size, fmt in test_matrix:
     print(f"  size={size}, format={fmt}")
 
 print()
 
-# Generate all pairwise comparisons (for compatibility testing)
-pairs = list(itertools.combinations(test_matrix, 2))
+# TODO: find all unique 2-element pairings of test_matrix entries (no repeated or reversed pairs)
+pairs = []  # replace with the full list
 print(f"Pairwise comparisons: {len(pairs)}")
 print("First 3 pairs:")
 for pair in pairs[:3]:
@@ -73,8 +73,8 @@ for pair in pairs[:3]:
 
 print()
 
-# Three-way product (sizes x formats x priorities)
-full_matrix = list(itertools.product(sizes, formats, priorities))
+# TODO: generate the cartesian product of all three lists (sizes x formats x priorities)
+full_matrix = []  # replace with the full list
 print(f"Full matrix size: {len(full_matrix)}")  # 3 * 3 * 2 = 18
 `,
       validate: (code) =>
@@ -101,22 +101,16 @@ sales = [
     {"category": "Clothing", "product": "Jeans", "amount": 89.99},
 ]
 
-# Sort first — groupby requires sorted input
-sorted_sales = sorted(sales, key=lambda r: r["category"])
+# TODO: step 1 — sort sales by "category" before grouping (groupby needs sorted input)
+sorted_sales = sales  # replace with the built-in sort call
 
 print("Sales by Category:")
 print("-" * 50)
 
-for category, group in itertools.groupby(sorted_sales, key=lambda r: r["category"]):
-    items = list(group)  # must consume the group before next iteration
-    total = sum(item["amount"] for item in items)
-    avg = total / len(items)
-    print(f"{category}:")
-    print(f"  Items: {len(items)}")
-    print(f"  Total: \${total:.2f}")
-    print(f"  Average: \${avg:.2f}")
-    for item in items:
-        print(f"    - {item['product']}: \${item['amount']:.2f}")
+# TODO: step 2 — call itertools.groupby on sorted_sales keyed by category
+# Inside the loop, immediately convert the group iterator to a list, then compute total and avg
+# Replace the stub below with your groupby loop
+pass
 `,
       validate: (code) =>
         code.includes("itertools.groupby") &&
@@ -134,26 +128,28 @@ for category, group in itertools.groupby(sorted_sales, key=lambda r: r["category
 workers = ["Alice", "Bob", "Carol", "David"]
 tasks = [f"task_{i:02d}" for i in range(1, 15)]
 
-# Round-robin assignment using cycle
+# TODO: pair each task with a worker by cycling through the workers list endlessly
 print("Task Assignments (round-robin):")
-assignments = list(zip(tasks, itertools.cycle(workers)))
+assignments = []  # replace with the correct list
 for task, worker in assignments:
     print(f"  {task} -> {worker}")
 
 print()
 
-# Use takewhile to process a stream until we hit a sentinel
-measurements = [15, 22, 18, 25, 30, 42, 38, -1, 12, 8]  # -1 is stop sentinel
+# Process a stream until we hit a sentinel value (-1 means stop)
+measurements = [15, 22, 18, 25, 30, 42, 38, -1, 12, 8]
 
-valid = list(itertools.takewhile(lambda x: x >= 0, measurements))
+# TODO: collect values from measurements while they are >= 0 (stop at the sentinel)
+valid = []  # replace with the correct list
 print(f"Valid measurements: {valid}")
 print(f"Count: {len(valid)}, Average: {sum(valid)/len(valid):.1f}")
 
 print()
 
-# dropwhile to skip low values at the start
+# Skip low readings at the start (warm-up period)
 readings = [2, 3, 1, 4, 15, 22, 18, 5, 3]
-significant = list(itertools.dropwhile(lambda x: x < 10, readings))
+# TODO: skip values < 10 from the start, then keep the rest
+significant = []  # replace with the correct list
 print(f"After warm-up: {significant}")
 `,
       validate: (code) =>
@@ -175,34 +171,29 @@ class_grades = [
     [96, 84, 67, 90, 83],
 ]
 
-# Step 1: Flatten all grades
-all_grades = list(itertools.chain.from_iterable(class_grades))
+# Step 1: Flatten all grades into a single list
+all_grades = []  # TODO: flatten class_grades using the appropriate itertools function
 print(f"All grades: {sorted(all_grades)}")
 
-# Step 2: Get passing grades (>= 70) using dropwhile on sorted list
+# Step 2: Get passing grades (>= 70) — sort first, then skip the failing ones
 sorted_grades = sorted(all_grades)
-passing = list(itertools.dropwhile(lambda g: g < 70, sorted_grades))
+passing = []  # TODO: skip grades < 70 from the front of sorted_grades using itertools
 print(f"Passing grades ({len(passing)}): {passing}")
 
-# Step 3: Find all pairs where both are A-grade (>= 90)
+# Step 3: Find all unique 2-element pairings of A-grade scores (>= 90)
 a_grades = [g for g in all_grades if g >= 90]
-a_pairs = list(itertools.combinations(a_grades, 2))
+a_pairs = []  # TODO: generate all unique pairs from a_grades using itertools
 print(f"A-grade pairs: {a_pairs}")
 
-# Step 4: Running average of sorted passing grades
-def running_avg(acc, new_val):
-    # acc is (running_total, count), but accumulate passes the result of last call
-    # So we store as a tuple trick:
-    pass  # We'll use a simpler approach
-
-running_totals = list(itertools.accumulate(passing))
+# Step 4: Running totals of passing grades
+running_totals = []  # TODO: produce a running sum of passing using itertools
 running_avgs = [total / (i + 1) for i, total in enumerate(running_totals)]
 print("Running averages:", [round(a, 1) for a in running_avgs])
 
-# Step 5: Product of possible grade bands
+# Step 5: All (period, band) report slot combinations
 bands = ["A (90-100)", "B (80-89)", "C (70-79)"]
 periods = ["Q1", "Q2", "Q3", "Q4"]
-report_slots = list(itertools.product(periods, bands))
+report_slots = []  # TODO: generate all (period, band) pairs using itertools
 print(f"\\nReport slots: {len(report_slots)}")
 for slot in report_slots[:6]:
     print(f"  {slot[0]} - {slot[1]}")

@@ -116,14 +116,8 @@ def audit_log(action, category="GENERAL"):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            start = time.perf_counter()
-            result = func(*args, **kwargs)
-            elapsed = time.perf_counter() - start
-            print(
-                f"[{category}] {action} | fn={func.__name__} | "
-                f"args={args} | result={result!r} | time={elapsed:.4f}s"
-            )
-            return result
+            # TODO: time the call, print log line, return result
+            pass
         return wrapper
     return decorator
 
@@ -134,11 +128,9 @@ def rate_limit(calls_per_second):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            now = time.time()
-            if now - last_called[0] < min_interval:
-                raise RuntimeError("Rate limit exceeded")
-            last_called[0] = now
-            return func(*args, **kwargs)
+            # TODO: check rate limit, raise RuntimeError if exceeded,
+            # update last_called, call and return func
+            pass
         return wrapper
     return decorator
 

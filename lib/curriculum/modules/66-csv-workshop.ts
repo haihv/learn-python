@@ -21,13 +21,11 @@ Apple,1.50,100
 Banana,0.75,150
 Cherry,3.00,50"""
 
-# Create a file-like object from the string
-f = io.StringIO(csv_text)
+# TODO: wrap csv_text in a file-like object using the io module
+f = None
 
-# Create a csv.reader and iterate over rows
-reader = csv.reader(f)
-for row in reader:
-    print(row)
+# TODO: pass f to the csv reader and print each row in a loop
+pass
 `,
       validate: (code) =>
         code.includes("csv.reader") && code.includes("io.StringIO"),
@@ -46,13 +44,10 @@ Apple,1.50,100
 Banana,0.75,150
 Cherry,3.00,50"""
 
-f = io.StringIO(csv_text)
-
-# Use DictReader so columns are accessible by name
-reader = csv.DictReader(f)
-for row in reader:
-    # Access by column name instead of index
-    print(f"{row['name']}: \${row['price']} (qty: {row['quantity']})")
+# TODO: wrap csv_text in a file-like object, then create a dict-based csv reader
+# that uses the header row as field names; iterate and print name and price per row
+f = None
+pass
 `,
       validate: (code) =>
         code.includes("csv.DictReader") && code.includes("io.StringIO"),
@@ -66,22 +61,19 @@ for row in reader:
       starterCode: `import csv
 import io
 
-# Create a buffer to write into
-buf = io.StringIO()
-writer = csv.writer(buf)
+# Create a buffer to write into — you will need to pass this to the writer
+buf = None  # replace with io.StringIO()
 
-# Write the header row
-writer.writerow(['product', 'category', 'stock'])
-
-# Write multiple data rows at once
-writer.writerows([
-    ['Laptop', 'Electronics', 42],
-    ['Desk Chair', 'Furniture', 15],
-    ['Notebook', 'Stationery', 200],
-])
+# TODO: create a csv writer object backed by buf
+# write the header: ['product', 'category', 'stock']
+# then write these data rows in one call:
+#   ['Laptop', 'Electronics', 42]
+#   ['Desk Chair', 'Furniture', 15]
+#   ['Notebook', 'Stationery', 200]
+pass
 
 # Retrieve and print the CSV content
-csv_output = buf.getvalue()
+csv_output = buf.getvalue() if buf else ""
 print(csv_output)
 print(f"Total characters written: {len(csv_output)}")
 `,
@@ -105,19 +97,13 @@ products = [
     {'name': 'Durian', 'price': 15.00, 'in_stock': False},
 ]
 
-buf = io.StringIO()
-
-# Define which fields to include (and their order)
+# TODO: create a StringIO buffer, then a dict-based csv writer with fieldnames below
+# emit the header row automatically, then write all product dicts at once
+buf = None  # replace with io.StringIO()
 fieldnames = ['name', 'price', 'in_stock']
-writer = csv.DictWriter(buf, fieldnames=fieldnames)
+pass
 
-# Write the header row automatically from fieldnames
-writer.writeheader()
-
-# Write all product dicts
-writer.writerows(products)
-
-print(buf.getvalue())
+print(buf.getvalue() if buf else "")
 `,
       validate: (code) =>
         code.includes("csv.DictWriter") &&
@@ -139,27 +125,24 @@ Banana,0.75,150
 Cherry,3.00,50"""
 
 # Step 1: Read and transform
-reader = csv.DictReader(io.StringIO(csv_text))
+# TODO: wrap csv_text in a file-like buffer and use the dict-based reader
+# For each row build a dict: name (str), price (convert to float then * 0.9, round 2dp), quantity (int)
 discounted = []
-for row in reader:
-    discounted.append({
-        'name': row['name'],
-        'price': round(float(row['price']) * 0.9, 2),
-        'quantity': int(row['quantity']),
-    })
+# your reader loop here
 
 print("Transformed data:")
 for item in discounted:
     print(f"  {item['name']}: \${item['price']:.2f} x {item['quantity']}")
 
 # Step 2: Write back to CSV
-out_buf = io.StringIO()
-writer = csv.DictWriter(out_buf, fieldnames=['name', 'price', 'quantity'])
-writer.writeheader()
-writer.writerows(discounted)
+# TODO: create a new StringIO buffer, a dict-based writer with fieldnames below,
+# emit the header, then write all discounted rows
+out_buf = None  # replace with io.StringIO()
+fieldnames_out = ['name', 'price', 'quantity']
+pass
 
 print("\\nOutput CSV:")
-print(out_buf.getvalue())
+print(out_buf.getvalue() if out_buf else "")
 `,
       validate: (code) =>
         code.includes("csv.DictReader") &&

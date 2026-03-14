@@ -38,7 +38,9 @@ print(f"Concatenation: {t_concat:.4f}s for {N} runs")
 `,
       validate: (code: string) =>
         code.includes("timeit.timeit") &&
-        code.includes("join"),
+        code.includes("join") &&
+        // Starter only times concat; require student to uncomment the join timing
+        /^[^#\n]*t_join\s*=/m.test(code),
       successMessage:
         "join() is typically 5-20x faster than += in a loop for large lists. The reason is immutability: each += allocates a new string of growing size, turning an O(n) operation into O(n²) in total character copies. join() allocates exactly once.",
     },
@@ -75,7 +77,8 @@ stream = io.StringIO()
 `,
       validate: (code: string) =>
         code.includes("cProfile") &&
-        (code.includes("pstats.Stats") || code.includes("cProfile.run(")),
+        // pstats.Stats and cProfile.run are in comments in the starter; require actual code
+        /^[^#\n]*pstats\.Stats\s*\(/m.test(code),
       successMessage:
         "fib(25) without memoization makes 242,785 calls. cProfile shows this clearly in the ncalls column. tottime per call is tiny, but ncalls is enormous — this is the classic exponential blowup. The fix is memoization, which you'll apply in step 4.",
     },
@@ -104,7 +107,9 @@ print(f"Generator size: {gen_size:,} bytes")
 `,
       validate: (code: string) =>
         code.includes("sys.getsizeof") &&
-        (code.includes("for x in range") || code.includes("x**2")),
+        (code.includes("for x in range") || code.includes("x**2")) &&
+        // Require the ratio comparison — the main insight of this step
+        /^[^#\n]*list_size\s*\/\s*gen_size/m.test(code),
       successMessage:
         "A list of 1000 integers takes ~8,056 bytes. The generator object takes ~104 bytes — about 80x smaller. Generators are the right tool when you process items one at a time and don't need random access. For very large sequences (millions of items), the memory difference is even more dramatic.",
     },
@@ -140,7 +145,8 @@ print(f"fib_slow(30): {t_slow:.4f}s")
 # print(fib_fast.cache_info())
 `,
       validate: (code: string) =>
-        code.includes("@lru_cache") &&
+        // @lru_cache appears only in a comment in the starter; require actual decorator
+        /^[ \t]*@lru_cache/m.test(code) &&
         code.includes("timeit"),
       successMessage:
         "With lru_cache, fib(30) goes from ~1 second (9 million calls) to microseconds. cache_info shows nearly all calls become hits after the first run. This is memoization: trade memory for time by storing results you've already computed.",
@@ -182,7 +188,9 @@ print(f"Local cache:   {t_fast:.4f}s")
       validate: (code: string) =>
         code.includes("timeit") &&
         code.includes("math.sqrt") &&
-        code.includes("_sqrt"),
+        code.includes("_sqrt") &&
+        // Require the fast timing line — the comparison the student must uncomment
+        /^[^#\n]*t_fast\s*=/m.test(code),
       successMessage:
         "Local variable optimization typically gives a 10-30% speedup in tight loops. It's a micro-optimization — only worth it in hot paths called millions of times. The key insight: LOAD_FAST (local) is a single array index lookup; LOAD_GLOBAL is a dict lookup plus attribute access.",
     },

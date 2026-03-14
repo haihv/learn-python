@@ -105,22 +105,26 @@ asyncio.run(main())
   tests: [
     {
       name: "Uses async def for coroutines",
-      description: "fetch and fetch_all must be defined with async def",
+      description: "fetch and fetch_all must be defined with async def, with actual implementations",
       validate: (code: string, _stdout: string) =>
         code.includes("async def fetch(") &&
-        code.includes("async def fetch_all("),
+        code.includes("async def fetch_all(") &&
+        // Require actual return value, not just the stub
+        (code.includes('return f"OK:') || code.includes("return f'OK:")),
     },
     {
       name: "Uses asyncio.sleep for simulated latency",
       description: "fetch() must await asyncio.sleep — not time.sleep",
       validate: (code: string, _stdout: string) =>
-        code.includes("asyncio.sleep") && !code.includes("time.sleep"),
+        // Require actual await statement, not just the TODO comment
+        /^[ \t]*await asyncio\.sleep/m.test(code) && !code.includes("time.sleep"),
     },
     {
       name: "Uses asyncio.gather for concurrency",
       description: "fetch_all() must use asyncio.gather to run fetches concurrently",
       validate: (code: string, _stdout: string) =>
-        code.includes("asyncio.gather"),
+        // asyncio.gather appears in a TODO comment in the starter; require real code
+        /^[^#\n]*asyncio\.gather/m.test(code),
     },
     {
       name: "Prints results for each URL",

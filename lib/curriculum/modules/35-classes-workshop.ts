@@ -15,12 +15,12 @@ export const classesWorkshop: WorkshopModule = {
       hint: "class BankAccount: then def __init__(self, owner, balance=0.0): set self.owner, self.balance, self.transactions = []. Then def __str__(self): return an f-string with the owner and balance.",
       starterCode: `class BankAccount:
     def __init__(self, owner, balance=0.0):
-        self.owner = owner
-        self.balance = balance
-        self.transactions = []
+        # TODO: store owner, balance; init self.transactions = []
+        pass
 
     def __str__(self):
-        return f"BankAccount({self.owner!r}, balance={self.balance:.2f})"
+        # TODO: return formatted string e.g. "BankAccount('Alice', balance=500.00)"
+        pass
 
 # Create and print an account
 account = BankAccount("Alice", 500.0)
@@ -54,18 +54,14 @@ print(account.balance)  # 500.0
         return f"BankAccount({self.owner!r}, balance={self.balance:.2f})"
 
     def deposit(self, amount):
-        if amount <= 0:
-            raise ValueError("Deposit amount must be positive")
-        self.balance += amount
-        self.transactions.append(("deposit", amount))
-        return self.balance
+        # TODO: validate amount > 0, update balance,
+        # append to transactions, return balance
+        pass
 
     def withdraw(self, amount):
-        if amount > self.balance:
-            raise ValueError(f"Insufficient funds: balance is {self.balance:.2f}")
-        self.balance -= amount
-        self.transactions.append(("withdrawal", amount))
-        return self.balance
+        # TODO: validate funds, update balance,
+        # append to transactions, return balance
+        pass
 
 account = BankAccount("Alice", 500.0)
 print(account.deposit(200.0))   # 700.0
@@ -82,7 +78,8 @@ except ValueError as e:
           code.includes("deposit") &&
           code.includes("withdraw") &&
           code.includes("transactions") &&
-          code.includes("ValueError")
+          code.includes("ValueError") &&
+          code.includes("self.transactions.append")
         );
       },
       successMessage:
@@ -116,17 +113,13 @@ except ValueError as e:
         return self.balance
 
     def get_statement(self):
-        lines = [f"=== Statement for {self.owner} ==="]
-        for txn_type, amount in self.transactions:
-            prefix = "+" if txn_type == "deposit" else "-"
-            lines.append(f"  {prefix}\${amount:.2f}  ({txn_type})")
-        lines.append(f"  Balance: \${self.balance:.2f}")
-        return "\\n".join(lines)
+        # TODO: build and return formatted statement string
+        # showing all transactions and final balance
+        pass
 
     def transfer(self, amount, target_account):
-        self.withdraw(amount)
-        target_account.deposit(amount)
-        print(f"Transferred \${amount:.2f} from {self.owner} to {target_account.owner}")
+        # TODO: withdraw from self, deposit to target
+        pass
 
 alice = BankAccount("Alice", 500.0)
 bob = BankAccount("Bob", 200.0)
@@ -142,7 +135,8 @@ print(bob.get_statement())
         return (
           code.includes("get_statement") &&
           code.includes("transfer") &&
-          code.includes("target_account")
+          code.includes("target_account") &&
+          code.includes("target_account.deposit")
         );
       },
       successMessage:
@@ -178,15 +172,14 @@ print(bob.get_statement())
         return self.balance
 
     def apply_interest(self):
-        interest = self.balance * BankAccount.interest_rate
-        self.balance += interest
-        self.transactions.append(("interest", interest))
-        return self.balance
+        # TODO: compute interest, update balance,
+        # append transaction, return balance
+        pass
 
     @classmethod
     def set_interest_rate(cls, rate):
-        cls.interest_rate = rate
-        print(f"Interest rate updated to {rate:.1%}")
+        # TODO: cls.interest_rate = rate
+        pass
 
 account = BankAccount("Alice", 1000.0)
 print(f"Initial: \${account.balance:.2f}")
@@ -204,7 +197,8 @@ print(f"Current rate: {BankAccount.interest_rate:.1%}")   # 3.0%
           code.includes("interest_rate") &&
           code.includes("apply_interest") &&
           code.includes("classmethod") &&
-          code.includes("set_interest_rate")
+          code.includes("set_interest_rate") &&
+          code.includes("cls.interest_rate")
         );
       },
       successMessage:
@@ -226,7 +220,8 @@ print(f"Current rate: {BankAccount.interest_rate:.1%}")   # 3.0%
         return f"BankAccount({self.owner!r}, balance={self.balance:.2f})"
 
     def __repr__(self):
-        return f"BankAccount(owner={self.owner!r}, balance={self.balance:.2f})"
+        # TODO: return repr string e.g. "BankAccount(owner='Alice', balance=500.00)"
+        pass
 
     def deposit(self, amount):
         if amount <= 0:
@@ -238,7 +233,8 @@ print(f"Current rate: {BankAccount.interest_rate:.1%}")   # 3.0%
     @classmethod
     def from_dict(cls, data):
         """Create a BankAccount from a dictionary."""
-        return cls(data["owner"], data.get("balance", 0.0))
+        # TODO: return cls(data['owner'], data.get('balance', 0.0))
+        pass
 
 # Create from dict (e.g., loaded from JSON)
 account_data = {"owner": "Charlie", "balance": 750.0}
@@ -265,7 +261,8 @@ for acc in accounts:
           code.includes("__repr__") &&
           code.includes("from_dict") &&
           code.includes("classmethod") &&
-          code.includes("isinstance")
+          code.includes("isinstance") &&
+          code.includes("data[")
         );
       },
       successMessage:
