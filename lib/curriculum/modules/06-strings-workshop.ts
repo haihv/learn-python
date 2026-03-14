@@ -84,13 +84,18 @@ manual = ""
 print(poem)
 print(manual)
 `,
-      validate: (code: string) =>
-        (code.includes('"""') || code.includes("'''")) &&
-        code.includes("\\n") &&
-        // starter has triple-quoted stub; require actual content (not just empty triple-quote)
-        !/poem\s*=\s*"""\s*"""/s.test(code) &&
-        // starter has manual = ""; require actual \n content in a non-empty string
-        !/^[^#\n]*manual\s*=\s*""\s*$/m.test(code),
+      validate: (code: string) => {
+        // starter has poem = """\n\n""" (empty stub) and manual = ""
+        // require the student to fill both in
+        const poemMatch = code.match(/poem\s*=\s*"""([\s\S]*?)"""/);
+        const poemFilled = poemMatch ? poemMatch[1].trim().length > 0 : false;
+        return (
+          (code.includes('"""') || code.includes("'''")) &&
+          code.includes("\\n") &&
+          poemFilled &&
+          !/^[^#\n]*manual\s*=\s*""\s*$/m.test(code)
+        );
+      },
       successMessage:
         "Triple-quoted strings preserve newlines literally — great for long text, SQL queries, and docstrings. \\n is the escape sequence for a newline character and works in any string type.",
     },
