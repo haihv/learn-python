@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import { getModuleBySlug } from "@/lib/curriculum";
-import ModuleView from "./ModuleView";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -14,6 +13,8 @@ export async function generateMetadata({
   return { title: `${mod.title} — Learn Python` };
 }
 
+// Content is rendered in learn/layout.tsx so navigation is instant (no server
+// round-trip between modules). This page only validates the slug for 404s.
 export default async function ModulePage({
   params,
 }: {
@@ -22,7 +23,5 @@ export default async function ModulePage({
   const { moduleId } = await params;
   const mod = getModuleBySlug(moduleId);
   if (!mod) notFound();
-  // Pass only the slug — the client component looks up the module itself,
-  // avoiding Next.js serialization errors for validate functions.
-  return <ModuleView slug={moduleId} />;
+  return null;
 }
