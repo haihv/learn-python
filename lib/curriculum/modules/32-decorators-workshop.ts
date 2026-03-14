@@ -122,7 +122,8 @@ print(len(fib.cache))     # Number of cached values
           code.includes("cache") &&
           code.includes("args") &&
           code.includes("fib") &&
-          code.includes("in cache")
+          // "in cache" appears in a TODO comment in the starter; require real code
+          /^[^#\n]*\bin\s+cache/m.test(code)
         );
       },
       successMessage:
