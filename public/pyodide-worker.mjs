@@ -29,10 +29,12 @@ let pyodideReady = null;
 
 self.onmessage = async ({ data }) => {
   if (data.type === "init") {
-    // Dynamic import — CDN URL comes from the main thread (env var).
-    // Starts loading immediately so Pyodide is warm for the first run.
-    const { loadPyodide } = await import(data.cdnUrl + "pyodide.mjs");
-    pyodideReady = loadPyodide({ indexURL: data.cdnUrl });
+    // Assign a Promise *before* any await so run messages that arrive
+    // concurrently see a non-null value and can await it rather than
+    // returning the "not initialised" error.
+    pyodideReady = import(data.cdnUrl + "pyodide.mjs").then(
+      ({ loadPyodide }) => loadPyodide({ indexURL: data.cdnUrl })
+    );
     return;
   }
 
