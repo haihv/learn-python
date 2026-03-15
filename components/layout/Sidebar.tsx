@@ -24,7 +24,7 @@ function SidebarContent({ modules, currentSlug, completedCount, totalCount, isCo
   const activeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    activeRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    activeRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
   }, [currentSlug]);
 
   return (
