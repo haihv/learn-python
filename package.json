@@ -2,6 +2,15 @@
   "name": "python-course",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haihv/learn-python"
+  },
+  "homepage": "https://learn-python.haihv.dev",
+  "bugs": {
+    "url": "https://github.com/haihv/learn-python/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

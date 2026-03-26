@@ -9,7 +9,7 @@
 - **CodeMirror 6** via `@uiw/react-codemirror` + `@codemirror/lang-python`
 - **react-markdown** + **remark-gfm** for markdown rendering
 - **canvas-confetti** for celebrations
-- **Piston API** (`https://emkc.org/api/v2/piston/execute`) for Python execution
+- **Pyodide** (v0.29.3 via jsDelivr CDN) for Python execution — runs in a Web Worker
 
 ## Architecture
 
