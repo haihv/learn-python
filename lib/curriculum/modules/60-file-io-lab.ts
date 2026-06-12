@@ -158,8 +158,8 @@ parse_logs(LOG_DATA)
     },
     {
       name: "Warning count",
-      description: "Output should report 2 WARNING entries",
-      validate: (_code, stdout) => stdout.includes("WARNING count: 2"),
+      description: "Output should report 3 WARNING entries",
+      validate: (_code, stdout) => stdout.includes("WARNING count: 3"),
     },
     {
       name: "Error messages printed",
