@@ -51,8 +51,8 @@ All accent colors use the `python-` prefix defined in `app/globals.css`:
 ## Commands
 
 ```bash
-npm run dev          # start dev server (localhost:3000)
-npm run build        # production build
-npm run lint         # ESLint
+pnpm dev          # start dev server (localhost:3000)
+pnpm build        # production build
+pnpm lint         # ESLint
 npx tsc --noEmit     # type-check (must pass before each new phase)
 ```
