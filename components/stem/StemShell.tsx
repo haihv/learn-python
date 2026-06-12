@@ -1,8 +1,8 @@
 "use client";
-import { useCallback } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useCourseStore } from "@/store/course";
-import { BLOOM_META, stems, getStemIndex } from "@/lib/stems";
+import { BLOOM_META } from "@/lib/stems";
 import type { Stem, StemLevel } from "@/lib/stems/types";
 import RecallChips from "./levels/RecallChips";
 import TapFlow from "./levels/TapFlow";
@@ -29,17 +29,31 @@ function LevelBody({ level, onEngage }: { level: StemLevel; onEngage: () => void
 }
 
 export default function StemShell({ stem }: { stem: Stem }) {
-  const reached = useCourseStore((s) => s.stemLevels[stem.slug] ?? 0);
   const reachStemLevel = useCourseStore((s) => s.reachStemLevel);
 
-  const index = getStemIndex(stem.slug);
-  const prev = index > 0 ? stems[index - 1] : undefined;
-  const next = index < stems.length - 1 ? stems[index + 1] : undefined;
+  // One level at a time. `current` is the viewed level (1–6); `unlocked` is the
+  // highest level the learner has advanced to this session. Kept local so the
+  // gated reveal is deterministic and free of hydration mismatch; progress is
+  // persisted via reachStemLevel for the Atlas to read later.
+  const [current, setCurrent] = useState(1);
+  const [unlocked, setUnlocked] = useState(1);
 
-  const engage = useCallback(
-    (level: number) => reachStemLevel(stem.slug, level),
-    [reachStemLevel, stem.slug]
-  );
+  const total = stem.levels.length;
+  const level = stem.levels[current - 1];
+  const meta = BLOOM_META[level.level];
+  const isLast = current === total;
+
+  const goTo = (n: number) => {
+    if (n < 1 || n > total || n > unlocked) return;
+    setCurrent(n);
+  };
+
+  const advance = () => {
+    const next = Math.min(current + 1, total);
+    setUnlocked((u) => Math.max(u, next));
+    setCurrent(next);
+    reachStemLevel(stem.slug, next);
+  };
 
   return (
     <main className="min-h-screen bg-navy-950">
@@ -60,68 +74,77 @@ export default function StemShell({ stem }: { stem: Stem }) {
             {stem.oneLiner}
           </p>
 
-          {/* Bloom ladder progress */}
+          {/* Bloom ladder — also navigation to any unlocked level */}
           <div className="mt-6 flex items-center gap-1.5">
             {stem.levels.map((l) => {
-              const meta = BLOOM_META[l.level];
-              const done = reached >= l.level;
+              const m = BLOOM_META[l.level];
+              const isUnlocked = l.level <= unlocked;
+              const isCurrent = l.level === current;
               return (
-                <div key={l.level} className="flex-1 text-center">
+                <button
+                  key={l.level}
+                  onClick={() => goTo(l.level)}
+                  disabled={!isUnlocked}
+                  title={`L${l.level} · ${m.name}${isUnlocked ? "" : " (locked)"}`}
+                  className={`flex-1 text-center ${isUnlocked ? "cursor-pointer" : "cursor-not-allowed"}`}
+                >
                   <div
                     className={`h-1.5 rounded-full transition-colors ${
-                      done ? meta.bar : "bg-navy-700"
+                      isCurrent ? m.bar : isUnlocked ? `${m.bar} opacity-50` : "bg-navy-700"
                     }`}
                   />
-                  <span className="mt-1 block text-[10px] text-navy-500">{meta.name}</span>
-                </div>
+                  <span
+                    className={`mt-1 block text-[10px] ${isCurrent ? m.text : "text-navy-500"}`}
+                  >
+                    {m.name}
+                  </span>
+                </button>
               );
             })}
           </div>
         </header>
 
-        <div className="flex flex-col gap-10">
-          {stem.levels.map((level) => {
-            const meta = BLOOM_META[level.level];
-            return (
-              <section key={level.level}>
-                <div className="mb-3 flex items-center gap-2">
-                  <span
-                    className={`${meta.text} font-mono text-xs font-bold uppercase tracking-wide`}
-                  >
-                    L{level.level} · {meta.name}
-                  </span>
-                  <span className="text-navy-500 text-xs">— {meta.verb}</span>
-                </div>
-                <h2 className="text-xl font-bold text-slate-100 mb-1">{level.title}</h2>
-                <p className="text-slate-400 text-sm mb-4">{level.lead}</p>
-                <LevelBody level={level} onEngage={() => engage(level.level)} />
-              </section>
-            );
-          })}
-        </div>
+        {/* Only the current level is shown */}
+        <section>
+          <div className="mb-3 flex items-center gap-2">
+            <span className={`${meta.text} font-mono text-xs font-bold uppercase tracking-wide`}>
+              L{level.level} · {meta.name}
+            </span>
+            <span className="text-navy-500 text-xs">
+              — {meta.verb} · step {current} of {total}
+            </span>
+          </div>
+          <h2 className="text-xl font-bold text-slate-100 mb-1">{level.title}</h2>
+          <p className="text-slate-400 text-sm mb-4">{level.lead}</p>
+          <LevelBody level={level} onEngage={() => reachStemLevel(stem.slug, level.level)} />
+        </section>
 
-        {/* Prev/next rails so the course reads as one path */}
-        <nav className="mt-12 flex items-center justify-between border-t border-navy-700 pt-6">
-          {prev ? (
-            <Link
-              href={`/stem/${prev.slug}`}
-              className="text-slate-300 text-sm hover:text-python-blue"
+        {/* Level navigation rails */}
+        <nav className="mt-10 flex items-center justify-between border-t border-navy-700 pt-6">
+          {current > 1 ? (
+            <button
+              onClick={() => goTo(current - 1)}
+              className="text-slate-300 text-sm hover:text-python-blue cursor-pointer"
             >
-              ← {prev.title}
-            </Link>
+              ← {BLOOM_META[stem.levels[current - 2].level].name}
+            </button>
           ) : (
             <span />
           )}
-          {next ? (
-            <Link
-              href={`/stem/${next.slug}`}
-              className="text-slate-300 text-sm hover:text-python-blue"
+
+          {!isLast ? (
+            <button
+              onClick={advance}
+              className="bg-python-blue text-white px-4 py-2 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity cursor-pointer"
             >
-              {next.title} →
-            </Link>
+              Continue → L{current + 1} · {BLOOM_META[stem.levels[current].level].name}
+            </button>
           ) : (
-            <Link href="/atlas" className="text-python-blue text-sm hover:underline">
-              Back to the Atlas →
+            <Link
+              href="/atlas"
+              className="bg-python-green text-navy-950 px-4 py-2 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity"
+            >
+              Stem complete 🎉 Back to the Atlas
             </Link>
           )}
         </nav>
