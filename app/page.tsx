@@ -13,12 +13,23 @@ export default function HomePage() {
         <p className="text-slate-400 text-xl max-w-xl mx-auto mb-8">
           Master Python through lessons, hands-on workshops, and coding labs — no setup required.
         </p>
-        <Link
-          href="/learn/intro"
-          className="bg-python-blue text-white font-bold px-8 py-3 rounded-lg text-lg hover:opacity-90 transition-opacity"
-        >
-          Get Started
-        </Link>
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <Link
+            href="/learn/intro"
+            className="bg-python-blue text-white font-bold px-8 py-3 rounded-lg text-lg hover:opacity-90 transition-opacity"
+          >
+            Get Started
+          </Link>
+          <Link
+            href="/atlas"
+            className="border border-python-cyan text-python-cyan font-bold px-8 py-3 rounded-lg text-lg hover:bg-python-cyan/10 transition-colors"
+          >
+            🗺 Explore the Atlas
+          </Link>
+        </div>
+        <p className="text-navy-500 text-xs mt-4 max-w-md">
+          New: a T-shaped map with Bloom-laddered deep stems — learn the whole field, then dig deep.
+        </p>
       </section>
 
       <section className="py-20 px-4 bg-navy-900">

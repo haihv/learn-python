@@ -28,6 +28,28 @@ lib/test-runner.ts                 ← evaluates LabTest[] against code + stdout
 store/course.ts                    ← Zustand store, persists to localStorage
 ```
 
+### T-shaped / Bloom deep-stems (additive track)
+
+```
+lib/stems/types.ts        ← Stem + Atlas types; 6 Bloom levels as a union
+lib/stems/atlas.ts        ← the "one idea" + Python carved into 6–9 domains
+lib/stems/<domain>.ts     ← one Stem per file (pure data, no React)
+lib/stems/index.ts        ← stems[] registry + atlas, getStemBySlug
+                                     ↓
+app/atlas/page.tsx         ← Tier 0 map: one idea, ladder, domain cards
+app/stem/[slug]/page.tsx   ← resolves slug → Stem (SSG via generateStaticParams)
+                                     ↓
+components/stem/StemShell.tsx       ← header + Bloom progress + prev/next rails
+components/stem/levels/*.tsx        ← one component per Bloom level (L1–L6)
+```
+
+A deep stem climbs Remember→Understand→Apply→Analyze→Evaluate→Create, one
+interaction shape per level. Authoring a new stem = write one data file in
+`lib/stems/`, register it in `index.ts`, and set the matching Atlas domain's
+`stemSlug`. No new React. `BLOOM_META` in `types.ts` holds **literal** Tailwind
+class names (e.g. `bg-python-cyan`) — never build color classes by string
+interpolation, the v4 scanner won't see them.
+
 ## Color Tokens
 
 All accent colors use the `python-` prefix defined in `app/globals.css`:
