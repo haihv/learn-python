@@ -30,6 +30,7 @@ export const atlas: Atlas = {
         "list, dict, set, tuple — their cost models and when each is the right reach.",
       createDeliverable:
         "A frequency-count pipeline that picks the right structure at each step, justified by Big-O.",
+      stemSlug: "stem-data-structures",
     },
     {
       id: "functions",
@@ -39,6 +40,7 @@ export const atlas: Atlas = {
         "First-class functions, closures, *args/**kwargs, and the LEGB scope rule.",
       createDeliverable:
         "A retry decorator with configurable backoff, preserving the wrapped function's metadata.",
+      stemSlug: "stem-functions",
     },
     {
       id: "oop",
@@ -48,6 +50,7 @@ export const atlas: Atlas = {
         "Dunder methods, dataclasses, properties, and duck typing over rigid inheritance.",
       createDeliverable:
         "A Vector type implementing the numeric protocol so it works with +, *, and len().",
+      stemSlug: "stem-oop",
     },
     {
       id: "iteration",
@@ -57,6 +60,7 @@ export const atlas: Atlas = {
         "Iterators, generators, comprehensions, and why lazy beats eager at scale.",
       createDeliverable:
         "A streaming log parser that processes a multi-GB file in constant memory.",
+      stemSlug: "stem-iteration",
     },
     {
       id: "errors",
@@ -66,6 +70,7 @@ export const atlas: Atlas = {
         "Exceptions as control flow, context managers, and cleaning up deterministically.",
       createDeliverable:
         "A transactional file-writer context manager that rolls back on failure.",
+      stemSlug: "stem-errors",
     },
     {
       id: "concurrency",
@@ -75,6 +80,7 @@ export const atlas: Atlas = {
         "The GIL, threads vs. asyncio vs. processes, and matching the model to the bottleneck.",
       createDeliverable:
         "A concurrent URL fetcher that picks asyncio for I/O-bound work and proves the speedup.",
+      stemSlug: "stem-concurrency",
     },
     {
       id: "tooling",
@@ -84,6 +90,7 @@ export const atlas: Atlas = {
         "pytest, type hints, profiling — the production concerns that keep code honest.",
       createDeliverable:
         "A tested, type-checked module with a profiling report justifying one optimization.",
+      stemSlug: "stem-tooling",
     },
   ],
 };
