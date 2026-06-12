@@ -64,11 +64,12 @@ Token roles (never hardcode hex in JSX):
 - `navy-{950..500}` — surfaces: 950 page, 900 panels, 800 cards, 700 hover,
   600 borders, 500 muted text
 - `python-{blue,yellow,green,red,purple,cyan}` — accents; ink-strength in
-  light, candlelit in dark. Translucent usages (`bg-python-cyan/15`) become
-  pastel chips
-- `slate-{100..500}` — ink text scale (remapped; flips with the theme);
-  `slate-50` is the inverse ink for text on solid accent buttons — use it
-  instead of `text-white`
+  light, candlelit in dark. Blue/yellow lean toward Python brand hues.
+  Translucent usages (`bg-python-cyan/15`) become pastel chips
+- `stone-{900..400}` — ink text scale, strongest (900) to faintest (400),
+  remapped so it flips with the theme; `stone-50` is the inverse ink for
+  text on solid accent/ink buttons — use it instead of `text-white`
+- Headings use `font-serif` (Source Serif 4); body/UI stays `font-mono`
 - Custom CSS must use `--th-*` variables directly; `@theme inline` tokens
   are inlined into utilities and don't exist at runtime
 

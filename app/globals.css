@@ -15,9 +15,11 @@
   --th-navy-600: #d6cfba;
   --th-navy-500: #8c8472;
 
-  /* Ink-strength accents; translucent usages become pastel chips */
+  /* Ink-strength accents; translucent usages become pastel chips.
+     Blue is the Python brand blue; yellow is an ink-strength take on the
+     brand yellow (the brand #ffd43b itself can't be ink on paper). */
   --th-python-cyan: #0c7a68;
-  --th-python-blue: #2767a8;
+  --th-python-blue: #3776ab;
   --th-python-purple: #7c5cb0;
   --th-python-green: #3e7d4f;
   --th-python-red: #c2402e;
@@ -49,13 +51,14 @@
   --th-navy-600: #463e35;
   --th-navy-500: #968b7b;
 
-  /* Muted, candlelit versions of the light theme's ink accents */
+  /* Muted, candlelit versions of the light theme's ink accents.
+     Blue and yellow lean toward the Python brand hues. */
   --th-python-cyan: #5fc9af;
-  --th-python-blue: #7fabd6;
+  --th-python-blue: #88b4dc;
   --th-python-purple: #b49bd9;
   --th-python-green: #8fc79a;
   --th-python-red: #e0796a;
-  --th-python-yellow: #d9a440;
+  --th-python-yellow: #e3c04e;
 
   /* Cream ink on dark paper */
   --th-ink-900: #f0ebe0;
@@ -89,14 +92,15 @@
   --color-python-red: var(--th-python-red);
   --color-python-yellow: var(--th-python-yellow);
 
-  /* The slate scale is used for ink text in JSX — remap the steps in use
-     so they flip with the theme */
-  --color-slate-100: var(--th-ink-900);
-  --color-slate-200: var(--th-ink-800);
-  --color-slate-300: var(--th-ink-700);
-  --color-slate-400: var(--th-ink-600);
-  --color-slate-500: var(--th-ink-500);
-  --color-slate-50: var(--th-ink-50);
+  /* The stone scale is used for ink text/surfaces in JSX — remap the
+     steps in use so they flip with the theme */
+  --color-stone-900: var(--th-ink-900);
+  --color-stone-800: var(--th-ink-800);
+  --color-stone-700: var(--th-ink-700);
+  --color-stone-600: var(--th-ink-600);
+  --color-stone-500: var(--th-ink-500);
+  --color-stone-400: var(--th-ink-400);
+  --color-stone-50: var(--th-ink-50);
 }
 
 body {

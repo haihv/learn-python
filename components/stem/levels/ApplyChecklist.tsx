@@ -45,7 +45,7 @@ export default function ApplyChecklist({
                 >
                   ✓
                 </span>
-                <span className={done ? "text-navy-500 line-through text-sm" : "text-slate-300 text-sm"}>
+                <span className={done ? "text-navy-500 line-through text-sm" : "text-stone-700 text-sm"}>
                   {item}
                 </span>
               </button>
@@ -67,7 +67,7 @@ export default function ApplyChecklist({
           </button>
           {showCode && (
             <pre className="mt-2 overflow-x-auto rounded-lg border border-navy-600 bg-navy-950 p-4 text-sm">
-              <code className="font-mono text-slate-200">{data.codePeek}</code>
+              <code className="font-mono text-stone-800">{data.codePeek}</code>
             </pre>
           )}
         </div>

@@ -30,7 +30,7 @@ export default function QuizBlock({ questions, onComplete }: Props) {
     <div>
       {questions.map((q, qi) => (
         <div key={qi} className="mb-6">
-          <p className="mb-3 font-medium text-slate-100">{q.question}</p>
+          <p className="mb-3 font-medium text-stone-900">{q.question}</p>
           <div className="flex flex-col gap-2">
             {q.options.map((option, oi) => {
               const isSelected = answers[qi] === oi;
@@ -38,7 +38,7 @@ export default function QuizBlock({ questions, onComplete }: Props) {
               const isWrongSelected = submitted && isSelected && !isCorrect;
 
               let styleClasses =
-                "border rounded-lg p-3 text-left w-full cursor-pointer bg-navy-800 border-navy-600 text-slate-300";
+                "border rounded-lg p-3 text-left w-full cursor-pointer bg-navy-800 border-navy-600 text-stone-700";
 
               if (submitted) {
                 styleClasses = "border rounded-lg p-3 text-left w-full cursor-default";
@@ -47,11 +47,11 @@ export default function QuizBlock({ questions, onComplete }: Props) {
                 } else if (isWrongSelected) {
                   styleClasses += " bg-python-red/20 border-python-red text-python-red";
                 } else {
-                  styleClasses += " bg-navy-800 border-navy-600 text-slate-500";
+                  styleClasses += " bg-navy-800 border-navy-600 text-stone-500";
                 }
               } else if (isSelected) {
                 styleClasses =
-                  "border rounded-lg p-3 text-left w-full cursor-pointer bg-navy-700 border-python-blue text-slate-100 ring-2 ring-python-blue";
+                  "border rounded-lg p-3 text-left w-full cursor-pointer bg-navy-700 border-python-blue text-stone-900 ring-2 ring-python-blue";
               }
 
               return (
@@ -78,14 +78,14 @@ export default function QuizBlock({ questions, onComplete }: Props) {
           {allCorrect ? (
             <button
               onClick={onComplete}
-              className="rounded-lg px-5 py-2 font-semibold bg-python-blue text-slate-50 cursor-pointer"
+              className="rounded-lg px-5 py-2 font-semibold bg-python-blue text-stone-50 cursor-pointer"
             >
               Next →
             </button>
           ) : (
             <button
               onClick={() => { setSubmitted(false); setAnswers({}); }}
-              className="rounded-lg px-5 py-2 font-semibold bg-navy-700 text-slate-200 cursor-pointer"
+              className="rounded-lg px-5 py-2 font-semibold bg-navy-700 text-stone-800 cursor-pointer"
             >
               Try Again
             </button>
@@ -95,7 +95,7 @@ export default function QuizBlock({ questions, onComplete }: Props) {
         <button
           onClick={handleSubmit}
           disabled={!allAnswered}
-          className={`rounded-lg px-5 py-2 font-semibold bg-python-blue text-slate-50 ${!allAnswered ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+          className={`rounded-lg px-5 py-2 font-semibold bg-python-blue text-stone-50 ${!allAnswered ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
         >
           Submit Answers
         </button>

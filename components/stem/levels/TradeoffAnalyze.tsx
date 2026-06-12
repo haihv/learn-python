@@ -40,12 +40,12 @@ export default function TradeoffAnalyze({
           aria-label={`${data.slider.leftLabel} to ${data.slider.rightLabel}`}
         />
         <div className="mt-3 rounded-lg border border-python-yellow/40 bg-navy-800 p-4">
-          <p className="text-slate-300 text-sm">{nearest.note}</p>
+          <p className="text-stone-700 text-sm">{nearest.note}</p>
         </div>
       </div>
 
       <div>
-        <p className="text-slate-200 text-sm font-bold mb-3">{data.toggle.question}</p>
+        <p className="text-stone-800 text-sm font-bold mb-3">{data.toggle.question}</p>
         <div className="flex flex-col sm:flex-row gap-3">
           {(["A", "B"] as const).map((key) => {
             const label = key === "A" ? data.toggle.optionA : data.toggle.optionB;
@@ -61,9 +61,9 @@ export default function TradeoffAnalyze({
                 className={`flex-1 rounded-lg border p-3 text-sm text-left transition-colors cursor-pointer ${
                   chosen
                     ? correct
-                      ? "border-python-green bg-python-green/15 text-slate-100"
-                      : "border-python-red bg-python-red/15 text-slate-100"
-                    : "border-navy-600 bg-navy-900 text-slate-300 hover:border-python-yellow"
+                      ? "border-python-green bg-python-green/15 text-stone-900"
+                      : "border-python-red bg-python-red/15 text-stone-900"
+                    : "border-navy-600 bg-navy-900 text-stone-700 hover:border-python-yellow"
                 }`}
               >
                 {chosen && <span aria-hidden>{correct ? "✓ " : "✗ "}</span>}
@@ -73,7 +73,7 @@ export default function TradeoffAnalyze({
           })}
         </div>
         {pick && (
-          <p className="mt-3 text-slate-300 text-sm border-l-2 border-python-yellow pl-3">
+          <p className="mt-3 text-stone-700 text-sm border-l-2 border-python-yellow pl-3">
             {data.toggle.why}
           </p>
         )}

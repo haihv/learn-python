@@ -39,7 +39,7 @@ export default function RecallChips({
           >
             <span className="font-mono font-bold text-python-cyan">{t.term}</span>
             {open ? (
-              <p className="text-slate-300 text-sm mt-2">{t.reveal}</p>
+              <p className="text-stone-700 text-sm mt-2">{t.reveal}</p>
             ) : (
               <p className="text-navy-500 text-xs mt-2">Tap to reveal — try to recall it first.</p>
             )}
