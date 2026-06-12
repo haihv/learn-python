@@ -12,8 +12,8 @@ An interactive Python learning platform built with Next.js. Work through lessons
 ## Getting Started
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -30,9 +30,9 @@ Or visit the live site at [learn-python.haihv.dev](https://learn-python.haihv.de
 ## Scripts
 
 ```bash
-npm run dev      # development server
-npm run build    # production build
-npm run lint     # ESLint
+pnpm dev      # development server
+pnpm build    # production build
+pnpm lint     # ESLint
 ```
 
 ## Built with
