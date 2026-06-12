@@ -10,7 +10,7 @@ export default function RunButton({ onRun, isRunning }: RunButtonProps) {
     <button
       onClick={onRun}
       disabled={isRunning}
-      className={`bg-python-blue text-white font-bold px-4 py-2 rounded-lg flex items-center gap-2 ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
+      className={`bg-python-blue text-slate-50 font-bold px-4 py-2 rounded-lg flex items-center gap-2 ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
     >
       {isRunning ? (
         <svg

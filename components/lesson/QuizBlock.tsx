@@ -78,7 +78,7 @@ export default function QuizBlock({ questions, onComplete }: Props) {
           {allCorrect ? (
             <button
               onClick={onComplete}
-              className="rounded-lg px-5 py-2 font-semibold bg-python-blue text-white cursor-pointer"
+              className="rounded-lg px-5 py-2 font-semibold bg-python-blue text-slate-50 cursor-pointer"
             >
               Next →
             </button>
@@ -95,7 +95,7 @@ export default function QuizBlock({ questions, onComplete }: Props) {
         <button
           onClick={handleSubmit}
           disabled={!allAnswered}
-          className={`rounded-lg px-5 py-2 font-semibold bg-python-blue text-white ${!allAnswered ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+          className={`rounded-lg px-5 py-2 font-semibold bg-python-blue text-slate-50 ${!allAnswered ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
         >
           Submit Answers
         </button>

@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { curriculum } from "@/lib/curriculum";
 import Badge from "@/components/ui/Badge";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function HomePage() {
   return (
     <main>
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 bg-navy-950">
         <p className="text-python-yellow text-sm font-mono mb-4">🐍 Free & Open Source</p>
         <h1 className="bg-gradient-to-r from-python-blue to-python-cyan bg-clip-text text-transparent text-5xl font-bold mb-4">
@@ -16,7 +20,7 @@ export default function HomePage() {
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <Link
             href="/learn/intro"
-            className="bg-python-blue text-white font-bold px-8 py-3 rounded-lg text-lg hover:opacity-90 transition-opacity"
+            className="bg-python-blue text-slate-50 font-bold px-8 py-3 rounded-lg text-lg hover:opacity-90 transition-opacity"
           >
             Get Started
           </Link>

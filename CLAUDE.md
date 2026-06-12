@@ -50,15 +50,27 @@ interaction shape per level. Authoring a new stem = write one data file in
 class names (e.g. `bg-python-cyan`) — never build color classes by string
 interpolation, the v4 scanner won't see them.
 
-## Color Tokens
+## Theme & Color Tokens
 
-All accent colors use the `python-` prefix defined in `app/globals.css`:
-- `python-blue` (#3776ab) — primary accent (buttons, links, active tab)
-- `python-yellow` (#ffd43b) — hints, warnings
-- `python-green` (#4caf50) — success, passing tests
-- `python-red` (#f44336) — errors, failing tests
-- `python-purple` (#9c27b0) — workshops, strong emphasis
-- `python-cyan` (#00bcd4) — lessons, headings
+Light/dark theming lives entirely in `app/globals.css`: two palettes of
+runtime `--th-*` CSS variables (`:root` = paper-and-ink light, `.dark` =
+candlelit charcoal) mapped to Tailwind tokens via `@theme inline`. The
+`.dark` class on `<html>` is applied pre-hydration by a bootstrap script in
+`app/layout.tsx` (localStorage `"theme"`, falling back to
+`prefers-color-scheme`) and toggled by `components/ui/ThemeToggle.tsx`
+(useSyncExternalStore + MutationObserver — no setState-in-effect).
+
+Token roles (never hardcode hex in JSX):
+- `navy-{950..500}` — surfaces: 950 page, 900 panels, 800 cards, 700 hover,
+  600 borders, 500 muted text
+- `python-{blue,yellow,green,red,purple,cyan}` — accents; ink-strength in
+  light, candlelit in dark. Translucent usages (`bg-python-cyan/15`) become
+  pastel chips
+- `slate-{100..500}` — ink text scale (remapped; flips with the theme);
+  `slate-50` is the inverse ink for text on solid accent buttons — use it
+  instead of `text-white`
+- Custom CSS must use `--th-*` variables directly; `@theme inline` tokens
+  are inlined into utilities and don't exist at runtime
 
 ## Key Conventions
 

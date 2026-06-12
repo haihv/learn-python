@@ -1,6 +1,7 @@
 "use client";
 import { useShortcutKey } from "@/hooks/useShortcutKey";
 import Badge from "@/components/ui/Badge";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import type { CourseModule } from "@/lib/curriculum/types";
 
 type TopBarProps = {
@@ -61,6 +62,7 @@ export default function TopBar({
       </div>
 
       <div className="flex items-center gap-2 shrink-0">
+        <ThemeToggle className="w-8 h-8 text-sm" />
         {hasPrev && (
           <button
             className="bg-navy-700 text-slate-200 px-3 py-1.5 rounded text-sm cursor-pointer"
@@ -73,7 +75,7 @@ export default function TopBar({
 
         {!isComplete && (
           <button
-            className="bg-python-blue text-white px-3 py-1.5 rounded text-sm font-bold cursor-pointer"
+            className="bg-python-blue text-slate-50 px-3 py-1.5 rounded text-sm font-bold cursor-pointer"
             onClick={onMarkComplete}
           >
             Mark Complete ✓
@@ -83,7 +85,7 @@ export default function TopBar({
         {isComplete && hasNext && (
           <div className="flex items-center gap-1.5">
             <button
-              className="bg-python-blue text-white px-3 py-1.5 rounded text-sm font-bold cursor-pointer"
+              className="bg-python-blue text-slate-50 px-3 py-1.5 rounded text-sm font-bold cursor-pointer"
               onClick={onNext}
               title={`Next module (${alt}+→)`}
             >

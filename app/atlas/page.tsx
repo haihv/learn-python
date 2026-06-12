@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { atlas, BLOOM_META } from "@/lib/stems";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "The Atlas — Learn Python",
@@ -14,9 +15,12 @@ export default function AtlasPage() {
   return (
     <main className="min-h-screen bg-navy-950">
       <div className="mx-auto max-w-4xl px-4 py-12">
-        <Link href="/" className="text-python-blue text-sm hover:underline">
-          ← Home
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link href="/" className="text-python-blue text-sm hover:underline">
+            ← Home
+          </Link>
+          <ThemeToggle />
+        </div>
 
         <header className="mt-4 mb-10">
           <p className="text-python-yellow text-sm font-mono mb-2">🗺 The Atlas</p>
