@@ -62,19 +62,19 @@ export default function LessonContent({ content }: Props) {
           },
           p({ children }) {
             return (
-              <p className="text-slate-300 leading-relaxed mb-4">{children}</p>
+              <p className="text-stone-700 leading-relaxed mb-4">{children}</p>
             );
           },
           ul({ children }) {
             return (
-              <ul className="text-slate-300 list-disc list-inside mb-4 space-y-1">
+              <ul className="text-stone-700 list-disc list-inside mb-4 space-y-1">
                 {children}
               </ul>
             );
           },
           ol({ children }) {
             return (
-              <ol className="text-slate-300 list-decimal list-inside mb-4 space-y-1">
+              <ol className="text-stone-700 list-decimal list-inside mb-4 space-y-1">
                 {children}
               </ol>
             );
@@ -102,14 +102,14 @@ export default function LessonContent({ content }: Props) {
           },
           th({ children }) {
             return (
-              <th className="px-4 py-2 text-left text-slate-300 font-semibold border-r border-navy-600 last:border-r-0">
+              <th className="px-4 py-2 text-left text-stone-700 font-semibold border-r border-navy-600 last:border-r-0">
                 {children}
               </th>
             );
           },
           td({ children }) {
             return (
-              <td className="px-4 py-2 text-slate-400 border-r border-navy-600 last:border-r-0">
+              <td className="px-4 py-2 text-stone-600 border-r border-navy-600 last:border-r-0">
                 {children}
               </td>
             );

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { atlas, BLOOM_META } from "@/lib/stems";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "The Atlas — Learn Python",
@@ -14,14 +15,17 @@ export default function AtlasPage() {
   return (
     <main className="min-h-screen bg-navy-950">
       <div className="mx-auto max-w-4xl px-4 py-12">
-        <Link href="/" className="text-python-blue text-sm hover:underline">
-          ← Home
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link href="/" className="text-python-blue text-sm hover:underline">
+            ← Home
+          </Link>
+          <ThemeToggle />
+        </div>
 
         <header className="mt-4 mb-10">
           <p className="text-python-yellow text-sm font-mono mb-2">🗺 The Atlas</p>
-          <h1 className="text-4xl font-bold text-slate-100 mb-4">Learn Python, T-shaped</h1>
-          <p className="text-slate-400 max-w-2xl">
+          <h1 className="text-4xl font-bold font-serif text-stone-900 mb-4">Learn Python, T-shaped</h1>
+          <p className="text-stone-600 max-w-2xl">
             First the whole field, broad and shallow. Then deep stems drive down into one
             domain at a time — each climbing Bloom&apos;s six levels, ending in something you build.
           </p>
@@ -29,13 +33,13 @@ export default function AtlasPage() {
           <div className="mt-6 rounded-xl border border-python-cyan/40 bg-navy-800 p-5">
             <p className="text-xs uppercase tracking-wide text-navy-500 mb-1">The one idea</p>
             <p className="text-python-cyan font-bold">{atlas.oneIdea}</p>
-            <p className="text-slate-400 text-sm mt-2">{atlas.oneIdeaExpanded}</p>
+            <p className="text-stone-600 text-sm mt-2">{atlas.oneIdeaExpanded}</p>
           </div>
         </header>
 
         {/* The Bloom ladder explained */}
         <section className="mb-12">
-          <h2 className="text-lg font-bold text-slate-100 mb-4">The ladder every stem climbs</h2>
+          <h2 className="text-lg font-bold font-serif text-stone-900 mb-4">The ladder every stem climbs</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
             {([1, 2, 3, 4, 5, 6] as const).map((lvl) => {
               const meta = BLOOM_META[lvl];
@@ -43,7 +47,7 @@ export default function AtlasPage() {
                 <div key={lvl} className="rounded-lg border border-navy-600 bg-navy-900 p-3">
                   <div className={`h-1 w-8 rounded-full ${meta.bar} mb-2`} />
                   <p className={`${meta.text} text-xs font-bold`}>L{lvl}</p>
-                  <p className="text-slate-200 text-sm">{meta.name}</p>
+                  <p className="text-stone-800 text-sm">{meta.name}</p>
                   <p className="text-navy-500 text-xs">{meta.verb}</p>
                 </div>
               );
@@ -53,7 +57,7 @@ export default function AtlasPage() {
 
         {/* The domains — the horizontal bar of the T */}
         <section>
-          <h2 className="text-lg font-bold text-slate-100 mb-4">
+          <h2 className="text-lg font-bold font-serif text-stone-900 mb-4">
             The {atlas.domains.length} domains
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -75,8 +79,8 @@ export default function AtlasPage() {
                       <span className="text-navy-500 text-xs">Stem coming soon</span>
                     )}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-100 mt-3">{d.title}</h3>
-                  <p className="text-slate-400 text-sm mt-1">{d.blurb}</p>
+                  <h3 className="text-lg font-bold font-serif text-stone-900 mt-3">{d.title}</h3>
+                  <p className="text-stone-600 text-sm mt-1">{d.blurb}</p>
                   <p className="text-navy-500 text-xs mt-3">
                     <span className="text-python-red">Create:</span> {d.createDeliverable}
                   </p>

@@ -15,7 +15,7 @@ export default function SpotTheFlaw({
 
   return (
     <div>
-      <p className="text-slate-200 text-sm font-bold mb-4">{data.prompt}</p>
+      <p className="text-stone-800 text-sm font-bold mb-4">{data.prompt}</p>
       <div className="flex flex-col gap-3">
         {data.options.map((opt, i) => {
           const isPicked = picked === i;
@@ -40,7 +40,7 @@ export default function SpotTheFlaw({
                       : "border-navy-600 bg-navy-900"
                 }`}
               >
-                <span className="text-slate-200">
+                <span className="text-stone-800">
                   {revealed && (
                     <span aria-hidden className="font-bold mr-1">
                       {opt.correct ? "✓" : isPicked ? "✗" : ""}
@@ -50,7 +50,7 @@ export default function SpotTheFlaw({
                 </span>
               </button>
               {revealed && (isPicked || opt.correct) && (
-                <p className="mt-1 ml-1 text-xs text-slate-400">{opt.reveal}</p>
+                <p className="mt-1 ml-1 text-xs text-stone-600">{opt.reveal}</p>
               )}
             </div>
           );

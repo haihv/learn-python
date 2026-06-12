@@ -39,8 +39,8 @@ export default function SpecBuilder({
                     onClick={() => choose(c.id, opt)}
                     className={`rounded-md border px-3 py-1.5 text-sm transition-colors cursor-pointer ${
                       chosen
-                        ? "border-python-red bg-python-red/15 text-slate-100"
-                        : "border-navy-600 bg-navy-900 text-slate-300 hover:border-python-red"
+                        ? "border-python-red bg-python-red/15 text-stone-900"
+                        : "border-navy-600 bg-navy-900 text-stone-700 hover:border-python-red"
                     }`}
                   >
                     {opt}
@@ -54,18 +54,18 @@ export default function SpecBuilder({
 
       <div className="rounded-lg border border-navy-600 bg-navy-800 p-4">
         <p className="text-xs uppercase tracking-wide text-navy-500 mb-1">Your spec</p>
-        <p className={allChosen ? "text-slate-100 text-sm" : "text-navy-500 text-sm"}>{spec}</p>
+        <p className={allChosen ? "text-stone-900 text-sm" : "text-navy-500 text-sm"}>{spec}</p>
       </div>
 
       <div className="rounded-lg border-2 border-python-red/50 bg-navy-900 p-4">
         <p className="text-python-red text-xs uppercase tracking-wide font-bold mb-2">
           🛠 Build card — {data.buildCard.title}
         </p>
-        <p className="text-slate-200 text-sm mb-3">{data.buildCard.deliverable}</p>
+        <p className="text-stone-800 text-sm mb-3">{data.buildCard.deliverable}</p>
         <p className="text-xs uppercase tracking-wide text-navy-500 mb-1">Acceptance criteria</p>
         <ul className="list-disc list-inside flex flex-col gap-1">
           {data.buildCard.acceptance.map((a, i) => (
-            <li key={i} className="text-slate-300 text-sm">
+            <li key={i} className="text-stone-700 text-sm">
               {a}
             </li>
           ))}
