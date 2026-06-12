@@ -92,7 +92,7 @@ for letter in sorted(by_letter.keys()):
 # --- Task 1: Count word frequency ---
 word_freq = {}
 for raw_word in paragraph.split():
-    word = raw_word.lower().strip('.,!?;:\\"\'')
+    word = raw_word.lower().strip('.,!?;:\\"\\'')
     if word:
         word_freq[word] = word_freq.get(word, 0) + 1
 
