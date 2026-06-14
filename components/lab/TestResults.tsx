@@ -25,7 +25,7 @@ export default function TestResults({ results }: Props) {
             className="flex items-start gap-2 p-3 bg-python-green/10 border border-python-green/30 rounded-lg"
           >
             <span className="text-python-green mt-0.5">✅</span>
-            <span className="text-slate-300">{result.name}</span>
+            <span className="text-stone-700">{result.name}</span>
           </li>
         ) : (
           <li
@@ -34,7 +34,7 @@ export default function TestResults({ results }: Props) {
           >
             <span className="text-python-red mt-0.5">❌</span>
             <div>
-              <p className="text-slate-300">{result.name}</p>
+              <p className="text-stone-700">{result.name}</p>
               {result.message && (
                 <p className="text-python-red text-sm mt-1">{result.message}</p>
               )}

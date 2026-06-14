@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCourseStore } from "@/store/course";
 import { BLOOM_META } from "@/lib/stems";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import type { Stem, StemLevel } from "@/lib/stems/types";
 import RecallChips from "./levels/RecallChips";
 import TapFlow from "./levels/TapFlow";
@@ -58,15 +59,18 @@ export default function StemShell({ stem }: { stem: Stem }) {
   return (
     <main className="min-h-screen bg-navy-950">
       <div className="mx-auto max-w-3xl px-4 py-10">
-        <Link href="/atlas" className="text-python-blue text-sm hover:underline">
-          ← Atlas
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link href="/atlas" className="text-python-blue text-sm hover:underline">
+            ← Atlas
+          </Link>
+          <ThemeToggle />
+        </div>
 
         <header className="mt-4 mb-8">
           <div className="flex items-center gap-3">
             <span className="text-4xl">{stem.icon}</span>
             <div>
-              <h1 className="text-3xl font-bold text-slate-100">{stem.title}</h1>
+              <h1 className="text-3xl font-bold font-serif text-stone-900">{stem.title}</h1>
               <p className="text-navy-500 text-xs">Deep stem · ~{stem.estimatedMinutes} min</p>
             </div>
           </div>
@@ -114,8 +118,8 @@ export default function StemShell({ stem }: { stem: Stem }) {
               — {meta.verb} · step {current} of {total}
             </span>
           </div>
-          <h2 className="text-xl font-bold text-slate-100 mb-1">{level.title}</h2>
-          <p className="text-slate-400 text-sm mb-4">{level.lead}</p>
+          <h2 className="text-xl font-bold font-serif text-stone-900 mb-1">{level.title}</h2>
+          <p className="text-stone-600 text-sm mb-4">{level.lead}</p>
           <LevelBody level={level} onEngage={() => reachStemLevel(stem.slug, level.level)} />
         </section>
 
@@ -124,7 +128,7 @@ export default function StemShell({ stem }: { stem: Stem }) {
           {current > 1 ? (
             <button
               onClick={() => goTo(current - 1)}
-              className="text-slate-300 text-sm hover:text-python-blue cursor-pointer"
+              className="text-stone-700 text-sm hover:text-python-blue cursor-pointer"
             >
               ← {BLOOM_META[stem.levels[current - 2].level].name}
             </button>
@@ -135,7 +139,7 @@ export default function StemShell({ stem }: { stem: Stem }) {
           {!isLast ? (
             <button
               onClick={advance}
-              className="bg-python-blue text-white px-4 py-2 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity cursor-pointer"
+              className="bg-python-blue text-stone-50 px-4 py-2 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity cursor-pointer"
             >
               Continue → L{current + 1} · {BLOOM_META[stem.levels[current].level].name}
             </button>

@@ -31,10 +31,10 @@ export default function TapFlow({
               onClick={() => select(i)}
               className={`font-mono text-sm rounded-md border px-3 py-2 transition-colors cursor-pointer ${
                 active === i
-                  ? "border-python-blue bg-python-blue/20 text-slate-100"
+                  ? "border-python-blue bg-python-blue/20 text-stone-900"
                   : seen.has(i)
-                    ? "border-navy-600 bg-navy-800 text-slate-400"
-                    : "border-navy-600 bg-navy-900 text-slate-200 hover:border-python-blue"
+                    ? "border-navy-600 bg-navy-800 text-stone-600"
+                    : "border-navy-600 bg-navy-900 text-stone-800 hover:border-python-blue"
               }`}
             >
               {s.label}
@@ -52,7 +52,7 @@ export default function TapFlow({
         {active === null ? (
           <p className="text-navy-500 text-sm">Tap a stage to see why it happens.</p>
         ) : (
-          <p className="text-slate-300 text-sm">{data.stages[active].why}</p>
+          <p className="text-stone-700 text-sm">{data.stages[active].why}</p>
         )}
       </div>
 

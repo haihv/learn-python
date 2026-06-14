@@ -96,7 +96,7 @@ export default function LabView({ module, onComplete }: Props) {
         <>
           <button
             onClick={handleNext}
-            className="bg-python-blue text-white font-bold px-4 py-2 rounded-lg cursor-pointer"
+            className="bg-python-blue text-stone-50 font-bold px-4 py-2 rounded-lg cursor-pointer"
           >
             Next →
           </button>
@@ -107,7 +107,7 @@ export default function LabView({ module, onComplete }: Props) {
           <button
             onClick={handleRun}
             disabled={isRunning}
-            className={`bg-python-blue text-white font-bold px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`bg-python-blue text-stone-50 font-bold px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             {isRunning ? (
               <>
@@ -189,10 +189,10 @@ export default function LabView({ module, onComplete }: Props) {
         <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
           {isFullscreen && (
             <div className="h-12 border-b border-navy-600 flex items-center px-4 justify-between shrink-0">
-              <span className="text-slate-400 text-sm font-mono">{module.title}</span>
+              <span className="text-stone-600 text-sm font-mono">{module.title}</span>
               <button
                 onClick={() => setIsFullscreen(false)}
-                className="text-slate-400 hover:text-slate-200 bg-navy-800 hover:bg-navy-700 rounded px-3 py-1 text-sm cursor-pointer"
+                className="text-stone-600 hover:text-stone-800 bg-navy-800 hover:bg-navy-700 rounded px-3 py-1 text-sm cursor-pointer"
               >
                 ✕ Exit Fullscreen
               </button>
