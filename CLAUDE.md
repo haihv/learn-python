@@ -73,6 +73,22 @@ Token roles (never hardcode hex in JSX):
 - Custom CSS must use `--th-*` variables directly; `@theme inline` tokens
   are inlined into utilities and don't exist at runtime
 
+## SEO
+
+`lib/seo.ts` is the single source of truth (site name, URL, description,
+keywords) plus helpers `absoluteUrl()` and `moduleDescription()`. Root
+metadata (title template, OpenGraph, Twitter, robots, canonical) lives in
+`app/layout.tsx`; `app/learn/[moduleId]`, `app/stem/[slug]`, and `app/atlas`
+each set per-route metadata + canonical. `app/sitemap.ts`, `app/robots.ts`,
+and `app/manifest.ts` use the metadata-route conventions and auto-include
+every curriculum module and stem — no manual list to maintain.
+`app/opengraph-image.tsx` renders a static social card via `next/og` using
+only inline styles + system fonts (no network at build). JSON-LD
+(`Course`/`WebSite` on home, `LearningResource` on module/stem pages) is
+emitted as inline `<script type="application/ld+json">` — allowed by the CSP
+`'unsafe-inline'`. When adding a route, give it `alternates.canonical` and a
+description.
+
 ## Key Conventions
 
 - `"use client"` on every component that uses hooks or browser APIs

@@ -1,12 +1,27 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { atlas, BLOOM_META } from "@/lib/stems";
+import { absoluteUrl, siteConfig } from "@/lib/seo";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
+const atlasDescription =
+  "A T-shaped map of Python: the one idea, the domains, and the Bloom ladder each deep stem climbs.";
+
 export const metadata: Metadata = {
-  title: "The Atlas — Learn Python",
-  description:
-    "A T-shaped map of Python: the one idea, the domains, and the Bloom ladder each deep stem climbs.",
+  title: "The Atlas",
+  description: atlasDescription,
+  alternates: { canonical: absoluteUrl("/atlas") },
+  openGraph: {
+    type: "website",
+    url: absoluteUrl("/atlas"),
+    title: `The Atlas — ${siteConfig.shortName}`,
+    description: atlasDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `The Atlas — ${siteConfig.shortName}`,
+    description: atlasDescription,
+  },
 };
 
 // Tier 0 of the method — the Atlas. The map of the field, where to focus, and
