@@ -2,10 +2,50 @@ import Link from "next/link";
 import { curriculum } from "@/lib/curriculum";
 import Badge from "@/components/ui/Badge";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import { siteConfig } from "@/lib/seo";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      url: siteConfig.url,
+      name: siteConfig.name,
+      description: siteConfig.description,
+      inLanguage: "en",
+    },
+    {
+      "@type": "Course",
+      "@id": `${siteConfig.url}/#course`,
+      name: siteConfig.name,
+      description: siteConfig.description,
+      url: siteConfig.url,
+      inLanguage: "en",
+      isAccessibleForFree: true,
+      teaches: "Python programming",
+      educationalLevel: "Beginner to Intermediate",
+      provider: {
+        "@type": "Organization",
+        name: siteConfig.shortName,
+        url: siteConfig.url,
+      },
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "online",
+        courseWorkload: `PT${curriculum.reduce((t, m) => t + m.estimatedMinutes, 0)}M`,
+      },
+    },
+  ],
+};
 
 export default function HomePage() {
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ThemeToggle className="fixed top-4 right-4 z-50" />
       <section className="min-h-screen flex flex-col items-center justify-center text-center px-4">
         <p className="text-python-cyan text-sm font-mono mb-6 border border-navy-600 rounded-full px-4 py-1.5 bg-navy-800">
