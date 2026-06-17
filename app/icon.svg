@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Learn Python">
+  <rect width="32" height="32" rx="7" fill="#3776ab"/>
+  <!-- coiled body -->
+  <path d="M21.5 25 C 22 20.5 10 20.5 10 16 C 10 11.5 21.5 12 20.5 8.6"
+        fill="none" stroke="#ffd43b" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- head -->
+  <circle cx="20.3" cy="8.2" r="4.3" fill="#ffd43b"/>
+  <!-- forked tongue -->
+  <path d="M24.2 8 L27.3 8 M27.3 8 L28.2 7.2 M27.3 8 L28.2 8.8"
+        fill="none" stroke="#c2402e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- eyes -->
+  <circle cx="19.2" cy="7.2" r="1.25" fill="#ffffff"/>
+  <circle cx="21.5" cy="7.2" r="1.25" fill="#ffffff"/>
+  <circle cx="19.4" cy="7.4" r="0.65" fill="#1c1917"/>
+  <circle cx="21.3" cy="7.4" r="0.65" fill="#1c1917"/>
+</svg>

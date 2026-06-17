@@ -55,10 +55,8 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-  },
+  // Icons are provided by the app/icon.svg and app/apple-icon.tsx file
+  // conventions — Next auto-links them, so no explicit `icons` needed here.
 };
 
 const themeBootstrap = `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")}catch(e){}})()`;
