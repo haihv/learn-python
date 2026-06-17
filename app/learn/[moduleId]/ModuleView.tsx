@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { curriculum, getModuleBySlug, getModuleIndex } from "@/lib/curriculum";
+import { absoluteUrl, moduleDescription, siteConfig } from "@/lib/seo";
 import { useProgress } from "@/hooks/useProgress";
 import TopBar from "@/components/layout/TopBar";
 import LessonContent from "@/components/lesson/LessonContent";
@@ -53,8 +54,25 @@ export default function ModuleView({ slug, sidebarCollapsed, onToggleSidebar }: 
     markComplete(mod.slug);
   };
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    name: mod.title,
+    description: moduleDescription(mod),
+    url: absoluteUrl(`/learn/${mod.slug}`),
+    learningResourceType: mod.type,
+    educationalLevel: "beginner",
+    timeRequired: `PT${mod.estimatedMinutes}M`,
+    inLanguage: "en",
+    isPartOf: { "@type": "Course", name: siteConfig.name, url: siteConfig.url },
+  };
+
   return (
     <div className="flex flex-col h-full">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <TopBar
         module={mod}
         onPrev={() => prev && router.push(`/learn/${prev.slug}`)}

@@ -1,7 +1,14 @@
 import { notFound } from "next/navigation";
-import { getModuleBySlug } from "@/lib/curriculum";
+import { curriculum, getModuleBySlug } from "@/lib/curriculum";
 import { absoluteUrl, moduleDescription, siteConfig } from "@/lib/seo";
 import type { Metadata } from "next";
+
+// Prerender every module at build time. The modules are fully known up front,
+// so these pages are static HTML (like the stems) rather than a per-request
+// serverless function — faster, cacheable, and no runtime function to fail.
+export function generateStaticParams() {
+  return curriculum.map((m) => ({ moduleId: m.slug }));
+}
 
 export async function generateMetadata({
   params,
@@ -31,39 +38,15 @@ export async function generateMetadata({
   };
 }
 
-// Content is rendered in learn/layout.tsx so navigation is instant (no server
-// round-trip between modules). This page validates the slug for 404s and emits
-// structured data for the module.
+// Content is rendered in learn/layout.tsx (which owns the sidebar + instant
+// client navigation) and the per-module JSON-LD is emitted from ModuleView.
+// This page only validates the slug for 404s.
 export default async function ModulePage({
   params,
 }: {
   params: Promise<{ moduleId: string }>;
 }) {
   const { moduleId } = await params;
-  const mod = getModuleBySlug(moduleId);
-  if (!mod) notFound();
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LearningResource",
-    name: mod.title,
-    description: moduleDescription(mod),
-    url: absoluteUrl(`/learn/${mod.slug}`),
-    learningResourceType: mod.type,
-    educationalLevel: "beginner",
-    timeRequired: `PT${mod.estimatedMinutes}M`,
-    inLanguage: "en",
-    isPartOf: {
-      "@type": "Course",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
+  if (!getModuleBySlug(moduleId)) notFound();
+  return null;
 }
